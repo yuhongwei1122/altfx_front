@@ -1,0 +1,61 @@
+.register_box {
+  width: 100%;
+  background: #f0f2f5;
+  min-height: 100vh;
+  overflow: hidden;
+}
+.register_box .register {
+  width: 70%;
+  padding: 10px;
+  margin: 5% auto 2%;
+}
+.register_box .register .reg_contain {
+  margin-top: 25px;
+  background: #fff;
+  border-radius: 5px;
+  padding: 10px;
+}
+.register_box .register .reg_contain .reg_title {
+  font-size: 14px;
+  color: #000;
+}
+.register_box .register .reg_contain .confirm_icon {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 72px;
+  line-height: 72px;
+  margin-bottom: 24px;
+}
+.register_box .register .reg_contain .confirm_icon .success {
+  color: #52c41a;
+}
+.register_box .register .reg_contain .result_text {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+.register_box .register .reg_note p {
+  text-indent: 2em;
+  font-size: 12px;
+  line-height: 20px;
+}
+.register_box .reg_footer {
+  text-align: center;
+  margin: 20px;
+}
+.register_box :global .ant-tabs .ant-tabs-bar {
+  border-bottom: 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.register_box :global .ant-input-affix-wrapper {
+  font-size: 16px;
+}
+@media (min-width: 768px) {
+  .main {
+    background-image: url(login.svg);
+    background-repeat: no-repeat;
+    background-position: center 110px;
+    background-size: 100%;
+  }
+}

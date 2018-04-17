@@ -1,0 +1,41 @@
+{
+    "error":{
+        "returnCode" : 0,
+        "returnMessage" : "用户名已被使用",
+        "returnUserMessage" : "用户名已被使用"
+    },
+    "data" : [
+        {
+            "id": "5",
+            "user_id": "9",
+            "mt4_name": "agent1",
+            "mt4_login": "20170918",
+            "commission_model": "ECN1",
+            "platform": "MT4",
+            "currency": "",
+            "leverage": "1",
+            "comment": null,
+            "extra_fee": "0",
+            "extra_amount": "0",
+            "reason": "",
+            "status": "2",
+            "create_time": null
+        },
+        {
+            "id": "6",
+            "user_id": "9",
+            "mt4_name": "agent2",
+            "mt4_login": "20170919",
+            "commission_model": "ECN1",
+            "platform": "MT4",
+            "currency": "",
+            "leverage": "1",
+            "comment": null,
+            "extra_fee": "0",
+            "extra_amount": "0",
+            "reason": "",
+            "status": "2",
+            "create_time": null
+        }
+    ]    
+}

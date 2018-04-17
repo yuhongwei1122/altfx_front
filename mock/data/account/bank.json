@@ -1,0 +1,23 @@
+{
+    "error":{
+        "returnCode" : 0,
+        "returnMessage" : "用户名已被使用",
+        "returnUserMessage" : "用户名已被使用"
+    },
+    "data" : [
+        {
+            "id": "4",
+            "user_id": "9",
+            "bank_name": "中国工商银行",
+            "card_no": "62100302948493038",
+            "create_time": "1505459964"
+        },
+        {
+            "id": "5",
+            "user_id": "9",
+            "bank_name": "中国银行",
+            "card_no": "62100302948493038",
+            "create_time": "1505459964"
+        }
+    ]
+}
