@@ -19,7 +19,6 @@ class BankTable extends Component {
         console.log(params);
         axios.post('/api/cash/card-list')
         .then((res) => {
-            let pager = { ...this.state.pagination };
             this.setState({
                 tableData : res.data
             });
@@ -42,10 +41,14 @@ class BankTable extends Component {
     };
     componentDidMount(){
         this.fetchData();
+        let info = {};
+        if(sessionStorage.getItem("altfx_user")){
+            info = sessionStorage.getItem("altfx_user");
+        }
         this.setState({
             editData:{
-                username:"中文名",
-                "english_name":"test"
+                username: info.username || "altfx",
+                "english_name": info.english_name || "altfx"
             }
         });
     };

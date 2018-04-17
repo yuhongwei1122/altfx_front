@@ -1,0 +1,112 @@
+{
+    "error": {
+        "returnCode": 0,
+        "returnUserMessage": "OK",
+        "returnMessage": "OK"
+      },
+      "data": {
+        "result_count": 48,
+        "result": [
+          {
+            "agent_unique_code": "8181818",
+            "agent_deposit": 0,      
+            "agent_withdraw": 0,
+            "customer_profit": "285.370", 
+            "customer_volume": "30.100",
+            "agent_commission": "30.100", 
+            "customer_deposit": 27718.230117798,
+            "customer_withdraw": 0 
+          },
+          {
+            "agent_unique_code": "6181819",
+            "agent_deposit": 0,
+            "agent_withdraw": 0,
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 0,
+            "customer_withdraw": 0
+          },
+          {
+            "agent_unique_code": "8181871",
+            "agent_deposit": 0,
+            "agent_withdraw": 0,
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 0,
+            "customer_withdraw": 0
+          },
+          {
+            "agent_unique_code": "6181878",
+            "agent_deposit": 0,
+            "agent_withdraw": 0,
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 0,
+            "customer_withdraw": 0
+          },
+          {
+            "agent_unique_code": "8181880",
+            "agent_deposit": 0,
+            "agent_withdraw": 0,
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 0,
+            "customer_withdraw": 0
+          },
+          {
+            "agent_unique_code": "6181883",
+            "agent_deposit": 0,
+            "agent_withdraw": 0,
+            "customer_profit": "285.370",
+            "customer_volume": "30.100",
+            "agent_commission": "0.000",
+            "customer_deposit": 6130.7400054932,
+            "customer_withdraw": 0
+          },
+          {
+            "agent_unique_code": "8181885",
+            "agent_deposit": "3240.2099609375",
+            "agent_withdraw": 0,
+            "customer_profit": "285.370",
+            "customer_volume": "30.100",
+            "agent_commission": "60.200",
+            "customer_deposit": 6130.7400054932,
+            "customer_withdraw": 0
+          },
+          {
+            "agent_unique_code": "8181897",
+            "agent_deposit": "1512",
+            "agent_withdraw": 0,
+            "customer_profit": "285.370",
+            "customer_volume": "30.100",
+            "agent_commission": "181.600",
+            "customer_deposit": 6084.7400054932,
+            "customer_withdraw": 0
+          },
+          {
+            "agent_unique_code": "6181887",
+            "agent_deposit": 0,
+            "agent_withdraw": 0,
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 0,
+            "customer_withdraw": 0
+          },
+          {
+            "agent_unique_code": "6181888",
+            "agent_deposit": 0,
+            "agent_withdraw": 0,
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 0,
+            "customer_withdraw": 0
+            }
+        ]
+    }
+}

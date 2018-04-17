@@ -1,0 +1,266 @@
+{
+    "error":{
+        "returnCode":0,
+        "returnUserMessage":"OK",
+        "returnMessage":"OK"
+    },
+    "data":{
+        "up":[
+            {
+                "id": "49",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "ECN2",
+                "commission": "2",
+                "commission_xauusd":"2",
+                "is_province_agent": 1,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "50",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "ECN1",
+                "commission_xauusd":"2",
+                "commission": "1",
+                "is_province_agent": 1,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "51",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "ECN3",
+                "commission_xauusd":"2",
+                "commission": "3",
+                "is_province_agent": 1,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "52",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "ECN4",
+                "commission_xauusd":"2",
+                "commission": "4",
+                "is_province_agent": 1,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "53",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "ECN5",
+                "commission_xauusd":"2",
+                "commission": "5",
+                "is_province_agent": 1,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "54",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "ECN6",
+                "commission_xauusd":"2",
+                "commission": "6",
+                "is_province_agent": 0,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "55",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "STP1",
+                "commission_xauusd":"2",
+                "commission": "1",
+                "is_province_agent": 0,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "56",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "STP2",
+                "commission_xauusd":"2",
+                "commission": "2",
+                "is_province_agent": 1,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "57",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "STP3",
+                "commission_xauusd":"2",
+                "commission": "3",
+                "is_province_agent": 0,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "58",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "STP4",
+                "commission_xauusd":"2",
+                "commission": "4",
+                "is_province_agent": 1,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "59",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "STP5",
+                "commission_xauusd":"2",
+                "commission": "5",
+                "is_province_agent": 1,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              },
+              {
+                "id": "60",
+                "agent": "34",
+                "parent_agent": "1",
+                "commission_model": "STP",
+                "commission_xauusd":"2",
+                "commission": "6",
+                "is_province_agent": 1,
+                "parent_unique_code": "8888888",
+                "account": "altfx"
+              }
+        ],
+        "down":[
+            {
+                "id":"135",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"ECN1",
+                "commission":"4",
+                "unique_code":"8181883",
+                "commission_xauusd":"34",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"136",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"ECN2",
+                "commission":"14",
+                "unique_code":"8181883",
+                "commission_xauusd":"34",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"137",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"ECN3",
+                "commission":"24",
+                "unique_code":"8181883",
+                "commission_xauusd":"34",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"138",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"ECN4",
+                "commission":"34",
+                "unique_code":"8181883",
+                "commission_xauusd":"34",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"139",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"ECN5",
+                "commission":"44",
+                "unique_code":"8181883",
+                "commission_xauusd":"34",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"140",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"ECN6",
+                "commission":"54",
+                "unique_code":"8181883",
+                "commission_xauusd":"34",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"141",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"STP",
+                "commission":"7",
+                "unique_code":"8181883",
+                "commission_xauusd":"34",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"142",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"STP1",
+                "commission":"17",
+                "unique_code":"8181883",
+                "commission_xauusd":"34",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"143",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"STP2",
+                "commission":"27",
+                "unique_code":"8181883",
+                "commission_xauusd":"34",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"144",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"STP3",
+                "commission":"37",
+                "unique_code":"8181883",
+                "commission_xauusd":"34",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"145",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"STP4",
+                "commission_xauusd":"34",
+                "commission":"47",
+                "unique_code":"8181883",
+                "account":"test_agent_02"
+            },
+            {
+                "id":"146",
+                "agent":"90",
+                "parent_agent":"88",
+                "commission_model":"STP5",
+                "commission_xauusd":"34",
+                "commission":"57",
+                "unique_code":"8181883",
+                "account":"test_agent_02"
+            }
+        ],
+        "result_count":24
+    }
+}

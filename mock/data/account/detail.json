@@ -1,7 +1,8 @@
 {
     "error":{
         "returnCode" : 0,
-        "returnUserMessage" : "请输入正确的用户名或密码"
+        "returnUserMessage" : "请输入正确的用户名或密码",
+        "returnMessage" : "请输入正确的用户名或密码"
     },
     "data" : {
         "id": "9",

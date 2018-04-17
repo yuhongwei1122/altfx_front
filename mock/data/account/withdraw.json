@@ -1,0 +1,10 @@
+{
+    "error":{
+        "returnCode" : 0,
+        "returnMessage" : "用户名已被使用",
+        "returnUserMessage" : "用户名已被使用"
+    },
+    "data" : {
+        
+    }
+}

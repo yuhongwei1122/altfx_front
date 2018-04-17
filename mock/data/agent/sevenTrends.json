@@ -1,0 +1,30 @@
+{
+    "error": {
+        "returnCode": 0,
+        "returnUserMessage": "OK",
+        "returnMessage": "OK"
+      },
+    "data": {
+        "2017-09-06": {
+          "commission": 0
+        },
+        "2017-09-05": {
+          "commission": 0
+        },
+        "2017-09-04": {
+          "commission": 0
+        },
+        "2017-09-03": {
+          "commission": 0
+        },
+        "2017-09-02": {
+          "commission": 0
+        },
+        "2017-09-01": {
+          "commission": 0
+        },
+        "2017-08-30": {
+          "commission": 1975
+        }
+    }
+}

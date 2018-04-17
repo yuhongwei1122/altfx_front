@@ -206,9 +206,8 @@ export default class SiderMenu extends PureComponent {
                 theme="dark"
                 mode="horizontal"
                 {...menuProps}
-                // inlineCollapsed={collapsed}
                 onOpenChange={this.handleOpenChange}
-                // selectedKeys={selectedKeys}
+                selectedKeys={selectedKeys}
                 style={{ padding: '0px', lineHeight:"60px" }}
             >
                 {this.getNavMenuItems(this.menus)}

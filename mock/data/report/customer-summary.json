@@ -1,0 +1,92 @@
+{
+    "error": {
+        "returnCode": 0,
+        "returnUserMessage": "OK",
+        "returnMessage": "OK"
+      },
+      "data": {
+        "result_count": 26,
+        "result": [
+          {
+            "customer_unique_code": "9181869", 
+            "customer_profit": 0,  
+            "customer_volume": 0, 
+            "agent_commission": 0, 
+            "customer_deposit": 0,
+            "customer_withdraw": 0 
+          },
+          {
+            "customer_unique_code": "9181831",
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 0,
+            "customer_withdraw": 0
+          },
+          {
+            "customer_unique_code": "9181833",
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 23,
+            "customer_withdraw": 0
+          },
+          {
+            "customer_unique_code": "9181886",
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 46,
+            "customer_withdraw": 0
+          },
+          {
+            "customer_unique_code": "9181898",
+            "customer_profit": "1141.480",
+            "customer_volume": "120.400",
+            "agent_commission": 0,
+            "customer_deposit": 6084.7400054932,
+            "customer_withdraw": 0,
+            "customer_commission": "271.900"
+          },
+          {
+            "customer_unique_code": "9181910",
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 0,
+            "customer_withdraw": 0
+          },
+          {
+            "customer_unique_code": "9181911",
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 662.84997558594,
+            "customer_withdraw": 0
+          },
+          {
+            "customer_unique_code": "9181930",
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 625.25,
+            "customer_withdraw": 0
+          },
+          {
+            "customer_unique_code": "9181933",
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 17020.580078125,
+            "customer_withdraw": 0
+          },
+          {
+            "customer_unique_code": "9181918",
+            "customer_profit": 0,
+            "customer_volume": 0,
+            "agent_commission": 0,
+            "customer_deposit": 3255.8100585938,
+            "customer_withdraw": 0
+          }]
+    }
+}

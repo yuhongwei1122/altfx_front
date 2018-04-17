@@ -33,29 +33,44 @@ axios.interceptors.response.use(function (response) {
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
     console.log(config);
-    const userinfo = JSON.parse(sessionStorage.getItem("altfx_user"));
-    config.data['token'] = userinfo['token'] ? userinfo['token'] : "";
+    let userinfo = {};
+    if(sessionStorage.getItem("altfx_user")){
+        userinfo = JSON.parse(sessionStorage.getItem("altfx_user"));
+    }
+    console.log(config);
+    let data = {};
+    if(config.data!=undefined){
+        console.log(config.data);
+        data = config.data;
+    }
+    if(userinfo['token']!= undefined && userinfo['token']!= '' && userinfo['token']!= null){
+        data.token = userinfo['token'];
+    }else{
+        data.token = "";
+    }
     if(config.method === 'post'){
-        if(!config.data['account']){
-            config.data['account'] = userinfo['account'] ? userinfo['account'] : "";
+        if(!data['account']){
+            data['account'] = userinfo['account'] ? userinfo['account'] : "";
         }
     }
-    config.data['ts'] = moment().unix();
-    const keys = Object.keys(config.data).sort();
+    data['ts'] = moment().unix();
+    const keys = Object.keys(data).sort();
     console.log(keys);
     let sign = [];
     keys.forEach((key)=>{
-        sign.push(config.data[key]);
+        sign.push(data[key]);
     });
     sign.push("crm-front");
     console.log(sign);
     sign = md5(sign.join("|"));
-    console.log(sign);
-    config.data['sign'] = sign;
-    console.log(config.data);
+    // console.log(sign);
+    data['sign'] = sign;
+    // console.log(config.data);
+    config.data = data;
     return config;
 }, function (error) {
     // Do something with request error
+    console.log("报错");
     return Promise.reject(error);
 });
 ReactDOM.render(

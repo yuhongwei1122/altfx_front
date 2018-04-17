@@ -2,7 +2,7 @@ const express  = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
 //登录部分
-app.post('/login/login',(req, res) => {
+app.post('/api/login/login',(req, res) => {
     res.send(require('./data/login.json'));
 });
 app.post('/api/login/find-pwd',(req, res) => {
@@ -35,7 +35,7 @@ app.post('/api/user/user-account',(req, res) => {
 });
 //代理获取帐户余额信息
 app.post('/api/user/agent-account',(req, res) => {
-    res.send(require('./data/account/userAccount.json'));
+    res.send(require('./data/account/agentAccount.json'));
 });
 //获取登录用户下的所有的mt4的帐户
 app.post('/api/user/getmt4',(req, res) => {
@@ -68,6 +68,51 @@ app.post('/api/cash/rate-query',(req, res) => {
 //申请入金
 app.post('/api/cash/charge',(req, res) => {
     res.send(require('./data/cash/charge.json'));
+});
+//申请出金
+app.post('/api/cash/withdraw',(req, res) => {
+    res.send(require('./data/account/withdraw.json'));
+});
+//补全银行卡信息
+app.post('/api/cash/update-card',(req, res) => {
+    res.send(require('./data/common/ok.json'));
+});
+//修改密码
+app.post('/api/user/update-pwd',(req, res) => {
+    res.send(require('./data/common/ok.json'));
+});
+//代理首页七日反佣
+app.post('/api/commission/seven-trends',(req, res) => {
+    res.send(require('./data/agent/sevenTrends.json'));
+});
+//返佣报告
+app.post('/api/commission/order-detail',(req, res) => {
+    res.send(require('./data/report/list.json'));
+});
+//奖金发放历史
+app.post('/api/bonus/detail',(req, res) => {
+    res.send(require('./data/bonus/list.json'));
+});
+app.post('/api/bonus/summary',(req, res) => {
+    res.send(require('./data/bonus/summary.json'));
+});
+//业绩管理
+app.post('/api/report/agent-summary',(req, res) => {
+    res.send(require('./data/report/agent-summary.json'));
+});
+app.post('/api/report/customer-summary',(req, res) => {
+    res.send(require('./data/report/customer-summary.json'));
+});
+app.post('/api/report/current-user',(req, res) => {
+    res.send(require('./data/report/current-user.json'));
+});
+//返佣规则
+app.post('/api/commission/configuration',(req, res) => {
+    res.send(require('./data/agent/configuration.json'));
+});
+//同名账户
+app.post('/api/member/customer-list',(req, res) => {
+    res.send(require('./data/agent/customer-list.json'));
 });
 app.listen(port, () => {console.log(`Lisening mockServer on port ${port}`)});
 

@@ -1,0 +1,9 @@
+.report {
+  margin-top: 20px;
+}
+.report :global .ant-card-body {
+  padding: 10px 24px;
+  font-size: 22px;
+  color: #000;
+  font-weight: bold;
+}

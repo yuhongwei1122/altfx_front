@@ -1,0 +1,12 @@
+{
+    "error": {
+        "returnCode": 0,
+        "returnUserMessage": "OK",
+        "returnMessage": "OK"
+      },
+      "data": {
+          "total_customer_trade_profit":"33243",
+          "total_customer_trade_volume": "2222",
+          "total_commission" :2323
+      }
+}

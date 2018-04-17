@@ -4,7 +4,7 @@ import axios from 'axios';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-class AddBankForm extends Component {
+class FillBankForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,14 +16,19 @@ class AddBankForm extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
             this.setState({loading: true});
-            values.id = this.props.editData.id;
-            axios.post('/platform/user/perms/update',values
+            values.card_id = this.props.editData.card_id;
+            axios.post('/api/cash/update-card',values
             ).then((res) => {
                 this.setState({loading: false});
-                this.props.handleEditOk();
+                this.props.handleBankUpdateOk(values.city,values.province);
             });
           }
         });
+    };
+    handleReset = (e) => {
+        this.props.form.resetFields();
+        e.preventDefault();
+        this.props.handleUpdateBankCancel();
     };
     
     render() {
@@ -56,22 +61,6 @@ class AddBankForm extends Component {
                 <Form onSubmit={this.handleSubmit}>
                     <FormItem
                         {...formItemLayout}
-                        label="姓名"
-                        >
-                        {getFieldDecorator('username')(
-                            <Input disabled/>
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="姓名拼音"
-                        >
-                        {getFieldDecorator('english_name')(
-                            <Input disabled/>
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
                         label="银行名称"
                         >
                         {getFieldDecorator('bank_name', {
@@ -79,7 +68,7 @@ class AddBankForm extends Component {
                                 required: true, message: '请输入银行名称!',
                             }],
                         })(
-                            <Input placeholder="请输入银行名称"/>
+                            <Input placeholder="请输入银行名称" disabled/>
                         )}
                     </FormItem>
                     <FormItem
@@ -91,7 +80,7 @@ class AddBankForm extends Component {
                                 required: true, message: '请输入开户行!',
                             }],
                         })(
-                            <Input placeholder="请输入开户行"/>
+                            <Input placeholder="请输入开户行" disabled/>
                         )}
                     </FormItem>
                     <FormItem
@@ -103,7 +92,7 @@ class AddBankForm extends Component {
                                 required: true, message: '请输入卡号!',
                             }],
                         })(
-                            <Input placeholder="请输入卡号"/>
+                            <Input placeholder="请输入卡号" disabled/>
                         )}
                     </FormItem>
                     <FormItem
@@ -120,7 +109,7 @@ class AddBankForm extends Component {
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="开户行所在省"
+                        label="开户行所在市"
                         >
                         {getFieldDecorator('city', {
                             rules: [{
@@ -142,14 +131,18 @@ class AddBankForm extends Component {
 export default  Form.create({
     mapPropsToFields(props) {
         return {
-            username: Form.createFormField({
+            opening_bank: Form.createFormField({
                 ...props.editData,
-                value: props.editData['username'],
+                value: props.editData['opening_bank'],
             }),
-            english_name: Form.createFormField({
+            bank_name: Form.createFormField({
                 ...props.editData,
-                value: props.editData['english_name'],
+                value: props.editData['bank_name'],
             }),
+            card_no: Form.createFormField({
+                ...props.editData,
+                value: props.editData['card_no'],
+            })
         };
     }
-})(AddBankForm);
+})(FillBankForm);

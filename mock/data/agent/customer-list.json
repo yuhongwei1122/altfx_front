@@ -1,0 +1,35 @@
+{
+    "error": {
+        "returnCode": 0,
+        "returnUserMessage": "OK",
+        "returnMessage": "OK"
+    },
+    "data": {
+        "result_count": 3,
+        "result": [
+            {
+                "account": "qimwang112",
+                "user_name": "用户1",
+                "register_date":"1516348046",
+                "unique_code": "9181818",
+                "balance": "1016357",
+                "credit": "0",
+                "equity": "1011413",
+                "role": 4,
+                "subordinate": 0
+            },
+            {
+                "account": "tom",
+                "user_name": "用户2",
+                "register_date":"1516348046",
+                "unique_code": "9181831",
+                "balance": "5000",
+                "credit": "0",
+                "equity": "3922",
+                "role": 4,
+                "subordinate": 0
+            }
+        
+        ]
+    }
+}

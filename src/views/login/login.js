@@ -26,7 +26,7 @@ class LoginForm extends Component {
             this.setState({
                 submiting: true
             });
-            axios.post('/login/login',values)
+            axios.post('/api/login/login',values)
             .then((res) => {
                 if(res.error.returnCode === 0){
                     this.setState({
@@ -38,7 +38,6 @@ class LoginForm extends Component {
                         user_id: res.data.user_id,
                         account: values.account
                     });
-                    this.props.history.push("/overview");
                 }else{
                     this.setState({
                         submiting: false,
@@ -58,6 +57,8 @@ class LoginForm extends Component {
             ...params
         }).then((res) => {
             const userinfo = {};
+            userinfo.username = res.data.username;
+            userinfo.english_name = res.data.english_name;
             userinfo.account = res.data.account;
             userinfo.unique_code = res.data.unique_code;
             userinfo.employee = res.data['employee'] ? res.data['employee'] : 0,
@@ -65,6 +66,7 @@ class LoginForm extends Component {
             userinfo.role = res.data.role;
             userinfo.token = params.token;
             sessionStorage.setItem("altfx_user",JSON.stringify(userinfo));
+            this.props.history.push("/overview");
         });
     };
     handleForget = () => {
