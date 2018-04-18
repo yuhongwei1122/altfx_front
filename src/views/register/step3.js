@@ -29,7 +29,10 @@ class Step3Form extends Component {
         });
     }
 
-    handleChange = ({ fileList }) => this.setState({ fileList });
+    handleChange = ({ fileList }) => {
+        console.log(fileList);
+        this.setState({ fileList });
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();

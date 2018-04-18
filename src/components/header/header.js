@@ -20,9 +20,13 @@ class JdbHeader extends Component {
     
     onMenuClick = () => {
         sessionStorage.setItem("altfx_user","");
-        console.log(this.props);
-        // this.props.history.push("/login");
-        window.location.href = "/"
+        axios.post('/api/login/out').then((res) => {
+            if(Number(res.error.returnCode) === 0){
+                window.location.href = "/";
+            }else{
+                window.location.href = "/"
+            }
+        });
     };
     handleClick = (e) => {
         console.log('click ', e);

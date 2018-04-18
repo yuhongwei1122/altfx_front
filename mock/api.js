@@ -5,6 +5,9 @@ const port = process.env.PORT || 5000;
 app.post('/api/login/login',(req, res) => {
     res.send(require('./data/login.json'));
 });
+app('/api/login/out',(req, res) => {
+    res.send(require('./data/common/ok.json'));
+});
 app.post('/api/login/find-pwd',(req, res) => {
     res.send(require('./data/common/ok.json'));
 });
