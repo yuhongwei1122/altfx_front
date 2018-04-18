@@ -61,7 +61,7 @@ class SearchForm extends Component{
                             )}
                         </FormItem>
                     </Col>
-                    <Col span={6} offset={2} key="search">
+                    <Col span={6} key="search" style={{marginTop:5}}>
                         <Button type="primary" htmlType="submit"><Icon type="search"></Icon>查询</Button>
                         <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>重置</Button>
                     </Col>

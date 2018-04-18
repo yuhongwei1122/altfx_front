@@ -81,10 +81,6 @@ app.post('/api/cash/update-card',(req, res) => {
 app.post('/api/user/update-pwd',(req, res) => {
     res.send(require('./data/common/ok.json'));
 });
-//代理首页七日反佣
-app.post('/api/commission/seven-trends',(req, res) => {
-    res.send(require('./data/agent/sevenTrends.json'));
-});
 //返佣报告
 app.post('/api/commission/order-detail',(req, res) => {
     res.send(require('./data/report/list.json'));
@@ -113,6 +109,38 @@ app.post('/api/commission/configuration',(req, res) => {
 //同名账户
 app.post('/api/member/customer-list',(req, res) => {
     res.send(require('./data/agent/customer-list.json'));
+});
+//修改点差类型
+app.post('/api/member/update-commission-model',(req, res) => {
+    res.send(require('./data/common/ok.json'));
+});
+//交易账户列表
+app.post('/api/member/mt4-login-list',(req, res) => {
+    res.send(require('./data/agent/mt4_login_list.json'));
+});
+//申请同名账户
+app.post('/api/user/mt4-apply',(req, res) => {
+    res.send(require('./data/common/ok.json'));
+});
+//会员结构
+app.post('/api/member/subordinate',(req, res) => {
+    res.send(require('./data/agent/subordinate.json'));
+});
+//升级员工
+app.post('/api/member/apply-employee',(req, res) => {
+    res.send(require('./data/common/ok.json'));
+});
+//获取7日反佣
+app.post('/api/commission/seven-trends',(req, res) => {
+    res.send(require('./data/agent/seven-trends.json'));
+});
+//组织关系图
+app.post('/api/commission/organization',(req, res) => {
+    res.send(require('./data/agent/organization.json'));
+});
+//获取昨日返佣
+app.post('/api/commission/distribute',(req, res) => {
+    res.send(require('./data/agent/distribute.json'));
 });
 app.listen(port, () => {console.log(`Lisening mockServer on port ${port}`)});
 

@@ -29,10 +29,11 @@
         "status": "1",
         "create_time": 1098091829,
         "update_time": 1098091829,
-        "invite_code": "8191904",
+        "invite_code": "8888888",
         "unique_code": "8191905",
-        "role": "4",
+        "role": "3",
         "reason": "通过",
+        "employee":"1",
         "mt4": [
             {
             "id": "5",

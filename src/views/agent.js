@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
 import { Button, Card, Row, Col, Table } from 'antd';
 import axios from 'axios';
+import {Chart, Axis, Tooltip, Geom} from "bizcharts";//引入图表插件
 
+const scale = {
+    year: { alias: '日期' },
+    commission: { alias: '返佣金额' }
+};
+const label = {
+    textStyle: {
+      textAlign: 'center', // 文本对齐方向，可取值为： start center end
+      fontSize: '12', // 文本大小
+      rotate: 30, 
+      textBaseline: 'top' // 文本基准线，可取 top middle bottom，默认为middle
+    },
+    autoRotate: true
+};
 class AgentIndex extends Component {
     constructor(props){
         super(props);
         this.state = {
             tableData: {},
-            trade: {}
+            trade: {},
+            employee: false,
+            trends:{}
         }
     };
     fetchData = (params = {}) => {
@@ -37,14 +53,42 @@ class AgentIndex extends Component {
             });
         });
     };
+    getSevenTrends = () => {
+        axios.post('/api/commission/seven-trends')
+        .then((res) => {
+            console.log("七日反佣",res.data);
+            this.setState({
+                trends : res.data
+            });
+        });
+    };
     componentDidMount(){
+        this.getSevenTrends();
+        let info = {};
+        if(sessionStorage.getItem("altfx_user")){
+            info = JSON.parse(sessionStorage.getItem("altfx_user"));
+        }
         this.fetchData();
-        this.initCashAccount();
+        if(Number(info.employee) === 0){
+            this.initCashAccount();
+        }
+        this.setState({
+            employee: Number(info.employee) === 0 ? false : true
+        });
     };
     render() {
+        let chartData = [];
+        let trends = this.state.trends || {};
+        console.log(trends);
+        if(Object.keys(trends).length > 0){
+            Object.keys(trends).forEach((key)=>{
+                chartData.push({year:key.substr(5),commission:trends[key].commission});
+            });
+        }
+        console.log(chartData);
         return (
             <div className="overview">
-                <div style={{marginTop:10}}>
+                {!this.state.employee ? <div style={{marginTop:10}}>
                     <Row gutter={24} style={{marginBottom:20}}>
                         <Col span={6}>
                             <Button onClick={this.handleRecharge.bind(this)} type="primary" style={{marginRight:10}}>流水</Button>
@@ -73,9 +117,14 @@ class AgentIndex extends Component {
                             </Card>
                         </Col>
                     </Row>
-                </div>
+                </div> : null}
                 <Card title="近7日返佣金额趋势" style={{marginTop:20,marginBottom:30}}>
-                    我是图表
+                    <Chart scale={scale} height={400} data={chartData} forceFit>
+                        <Axis name="year" label={label}/>
+                        <Axis name="commission" />
+                        <Tooltip crosshairs={{type : "y"}}/>
+                        <Geom type="interval" position="year*commission" />
+                    </Chart>
                 </Card>
             </div>
         );

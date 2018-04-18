@@ -1,0 +1,156 @@
+{
+    "error":{
+        "returnCode":0,
+        "returnUserMessage":"OK",
+        "returnMessage":"OK"
+    },
+    "data":{
+        "id":"1",
+        "username":"hh",
+        "role":"3",
+        "unique_code":"8888888",
+        "children":[
+            {
+                "id":"18",
+                "username":"北京办",
+                "role":"3",
+                "unique_code":"8181818",
+                "children":[
+                    {
+                        "id":"19",
+                        "username":"张美娟",
+                        "role":"3",
+                        "unique_code":"6181819",
+                        "children":[
+
+                        ]
+                    },
+                    {
+                        "id":"63",
+                        "username":"吴伟强",
+                        "role":"3",
+                        "unique_code":"6181887",
+                        "children":[
+
+                        ]
+                    },
+                    {
+                        "id":"64",
+                        "username":"姜伟",
+                        "role":"3",
+                        "unique_code":"6181888",
+                        "children":[
+
+                        ]
+                    },
+                    {
+                        "id":"65",
+                        "username":"丁新颖",
+                        "role":"3",
+                        "unique_code":"6181889",
+                        "children":[
+
+                        ]
+                    },
+                    {
+                        "id":"69",
+                        "username":"张新续",
+                        "role":"3",
+                        "unique_code":"6181895",
+                        "children":[
+                            {
+                                "id":"365",
+                                "username":"陈清涛",
+                                "role":"4",
+                                "unique_code":"9183395",
+                                "children":[
+
+                                ]
+                            },
+                            {
+                                "id":"391",
+                                "username":"刘冬冬",
+                                "role":"3",
+                                "unique_code":"8183533",
+                                "children":[
+
+                                ]
+                            },
+                            {
+                                "id":"394",
+                                "username":"刘冬冬",
+                                "role":"3",
+                                "unique_code":"8183536",
+                                "children":[
+
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id":"112",
+                        "username":"陈峥",
+                        "role":"4",
+                        "unique_code":"9181953",
+                        "children":[
+
+                        ]
+                    },
+                    {
+                        "id":"115",
+                        "username":"张鑫",
+                        "role":"3",
+                        "unique_code":"6181957",
+                        "children":[
+                            {
+                                "id":"116",
+                                "username":"裴玉珍",
+                                "role":"4",
+                                "unique_code":"9181958",
+                                "children":[
+
+                                ]
+                            },
+                            {
+                                "id":"334",
+                                "username":"王坤",
+                                "role":"4",
+                                "unique_code":"9183365",
+                                "children":[
+
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id":"130",
+                        "username":"谢世青",
+                        "role":"3",
+                        "unique_code":"6181977",
+                        "children":[
+
+                        ]
+                    }
+                ]
+            },
+            {
+                "id":"363",
+                "username":"苏德巴特尔",
+                "role":"3",
+                "unique_code":"8183391",
+                "children":[
+
+                ]
+            },
+            {
+                "id":"387",
+                "username":"邱宁",
+                "role":"3",
+                "unique_code":"8183518",
+                "children":[
+
+                ]
+            }
+        ]
+    }
+}

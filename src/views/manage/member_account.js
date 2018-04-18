@@ -4,10 +4,11 @@ import { Table, Button, Modal, Tag, notification, Select } from 'antd';
 import axios from 'axios';
 import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './search';
+import ChangePointForm from './change_point';
 const ButtonGroup = Button.Group;
 const Option = Select.Option;
 
-class SameAccountTable extends Component {
+class MemberAccountTable extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -20,6 +21,8 @@ class SameAccountTable extends Component {
                 showSizeChanger:true,
                 pageSizeOptions:['10', '20', '30', '40', '50', '100']
             },
+            unique_code: "",
+            username: "",
             editData: {},
             editVisabled: false
         }
@@ -27,12 +30,8 @@ class SameAccountTable extends Component {
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         console.log(params);
-        let info = {};
-        if(sessionStorage.getItem("altfx_user")){
-            info = JSON.parse(sessionStorage.getItem("altfx_user"));
-        }
-        axios.post('/api/member/customer-list',{
-            login_unique_code: info.unique_code,
+        axios.post('/api/member/mt4-login-list',{
+            unique_code: this.state.unique_code,
             size: this.state.pagination.pageSize,  //每页数据条数
             ...params
         }).then((res) => {
@@ -46,44 +45,49 @@ class SameAccountTable extends Component {
             });
         });
     };
-    handleSearch = (params) => {
-        this.fetchData({page:1,...params});
-    };
     componentDidMount(){
-        console.log("did mount 中当前的页："+this.state.pagination.current);
-        this.fetchData({page:1});
+        this.setState({
+            unique_code: this.props.match.params.unique_code || "",
+            username: this.props.match.params.username || "",
+        });
     };
     render() {
         const columns = [
             {
-                title: '账户ID',
-                dataIndex: 'unique_code',
-                key: 'unique_code'
+                title: 'MT4账户名',
+                dataIndex: 'mt4_login',
+                key: 'mt4_login'
             }, 
             {
-                title: 'CRM账户名',
-                dataIndex: 'account',
-                key: 'account'
+                title: 'MT4昵称',
+                dataIndex: 'mt4_name',
+                key: 'mt4_name'
             },
             {
-                title: '姓名',
-                dataIndex: 'user_name',
-                key: 'user_name'
+                title: '点差类型',
+                dataIndex: 'commission_model',
+                key: 'commission_model'
             },
             {
-                title: '余额',
-                dataIndex: 'balance',
-                key: 'balance'
-            }, 
-            {
-                title: '净值',
-                dataIndex: 'equity',
-                key: 'equity'
-            }, 
+                title: '杠杆',
+                dataIndex: 'leverage',
+                key: 'leverage',
+                render: (text) => {
+                    if(Number(text) === 1){
+                        return "1:50";
+                    }else if(Number(text) === 2){
+                        return "1:100";
+                    }else if(Number(text) === 3){
+                        return "1:200";
+                    }else{
+                        return "1:400";
+                    }
+                }
+            },  
             {
                 title: '注册时间',
-                dataIndex: 'register_date',
-                key: 'register_date',
+                dataIndex: 'regdate',
+                key: 'regdate',
                 render: (text) => {
                     return <DateFormate date={text} format="yyyy-MM-dd hh:mm:ss"/>;
                 }
@@ -92,19 +96,16 @@ class SameAccountTable extends Component {
                 title: '操作',
                 dataIndex: '', 
                 key: 'x', 
-                width: "330px",
-                render: (text, row, index) => (
-                    <ButtonGroup> 
-                        <Link to={{pathname:'/manage/apply/'+row.unique_code+'/'+row.account}}><Button style={{lineHeight:0}} type="primary" icon="check">申请同名账户</Button></Link>
-                        <Link to={{pathname:'/manage/trade_account/'+row.unique_code+'/'+row.account}}><Button style={{lineHeight:0}} type="danger" icon="edit">修改点差类型</Button></Link>
-                    </ButtonGroup>
-                )
+                render: (text, row, index) => {
+                    return <Button style={{lineHeight:0}} type="danger" icon="edit">交易历史</Button>
+                }
             }
         ];
         return (
             <div className="overview" style={{marginTop:"30px"}}>
                 <div style={{overflow:"hidden"}}>
-                   <SearchForm handleSearch={this.handleSearch}/>
+                   CRM账户名：{this.state.username}
+                   账户ID：{this.state.unique_code}
                 </div>
                 <div>
                     <Table 
@@ -113,9 +114,9 @@ class SameAccountTable extends Component {
                         dataSource={this.state.tableData} 
                         pagination={this.state.pagination} 
                         onChange={this.handleChange}/>
-                </div>               
+                </div>              
             </div>
         );
     }
 };
-export default SameAccountTable;
+export default MemberAccountTable;

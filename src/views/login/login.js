@@ -65,6 +65,7 @@ class LoginForm extends Component {
             userinfo.user_id = res.data.id;
             userinfo.role = res.data.role;
             userinfo.token = params.token;
+            userinfo.invite_code = res.data.invite_code;
             sessionStorage.setItem("altfx_user",JSON.stringify(userinfo));
             this.props.history.push("/overview");
         });

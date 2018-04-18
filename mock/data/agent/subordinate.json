@@ -1,0 +1,46 @@
+{
+    "error":{
+        "returnCode" : 0,
+        "returnUserMessage" : "请输入正确的用户名或密码"
+    },
+    "data" : {
+        "result_count" : 23,
+        "result" : [
+            {
+                "account": "armstrong",
+                "user_name": "用户3",
+                "register_date": "1516348046",
+                "unique_code": "9181819",
+                "balance": "46705",
+                "credit": "0",
+                "equity": "46705",
+                "subordinate": 0,
+                "employee":0
+            },
+            {
+                "account": "lin",
+                "user_name": "二级代理",
+                "register_date": "1516348046",
+                "unique_code": "8181833",
+                "balance": 0,
+                "credit": "-",
+                "equity": "-",
+                "subordinate": 2,
+                "employee":0
+            },
+            {
+                "account": "qing",
+                "user_name": "二级代理",
+                "register_date": "1516348046",
+                "unique_code": "8181835",
+                "balance": 0,
+                "credit": "-",
+                "equity": "-",
+                "subordinate": 0,
+                "employee":1
+            }
+
+        ],
+        "invite_relation":["8888888"]
+    }
+}

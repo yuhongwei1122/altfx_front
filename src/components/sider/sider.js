@@ -34,7 +34,12 @@ export default class SiderMenu extends PureComponent {
         this.menus = props.menuData;
         console.log(this.props.location);
         this.flatMenuKeys = this.getFlatMenuKeys(props.menuData);//遍历菜单，获取所有的路由，放在数组中
+        let info = {};
+        if(sessionStorage.getItem("altfx_user")){
+            info = JSON.parse(sessionStorage.getItem("altfx_user"));
+        }
         this.state = {
+            role: info.account === 'account' ? "admin" : Number(info.employee) === 0 ? (Number(info.role) === 4 ? "custom" : "agent") : "employee",
             openKeys: this.getDefaultCollapsedSubMenus(props),
         };
     };
@@ -81,12 +86,17 @@ export default class SiderMenu extends PureComponent {
         if (!menusData) {
             return [];
         }
+        // console.log("代理：",this.state.agent);
+        // console.log("客户：",this.state.custom);
+        // console.log("员工：",this.state.employee);
         // console.log(menusData);
         return menusData
             .filter(item => item.name && !item.hideInMenu)
             .map((item) => {
-                const ItemDom = this.getSubMenuOrItem(item);
-                return ItemDom;
+                if(item.role.indexOf(this.state.role) != -1){
+                    const ItemDom = this.getSubMenuOrItem(item);
+                    return ItemDom;
+                }
             })
             .filter(item => item);
     };

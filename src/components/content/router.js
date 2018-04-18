@@ -101,4 +101,34 @@ export default [
         private: true,
         component: () => import('../../views/manage/same')
     },
+    {
+        path: '/manage/trade_account/:unique_code/:username',
+        name: '交易账户列表',
+        private: true,
+        component: () => import('../../views/manage/account')
+    },
+    {
+        path: '/manage/apply/:unique_code/:username',
+        name: '申请同名账户',
+        private: true,
+        component: () => import('../../views/manage/apply_same')
+    },
+    {
+        path: '/manage/account/:unique_code/:username',
+        name: '查看交易账户列表',
+        private: true,
+        component: () => import('../../views/manage/member_account')
+    },
+    {
+        path: '/manage/member',
+        name: '会员结构',
+        private: true,
+        component: () => import('../../views/manage/member')
+    },
+    {
+        path: '/rakeback/index',
+        name: '返佣概况',
+        private: true,
+        component: () => import('../../views/agent/index')
+    },
 ]

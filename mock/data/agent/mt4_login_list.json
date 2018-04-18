@@ -1,0 +1,52 @@
+{
+    "error": {
+        "returnCode": 0,
+        "returnUserMessage": "OK",
+        "returnMessage": "OK"
+  },
+  "data": {
+      "result_count": 3,
+      "result": [
+          {
+            "unique_code": "9181818",
+            "customer_account":"tets",
+            "mt4_name": "qimwang",
+            "mt4_login": "1024",
+            "commission_model": "ECN1",
+            "leverage": "1",
+            "regdate": "1516348046",
+            "balance": "1003492.39"
+          },
+          {
+            "unique_code": "9181819",
+            "customer_account":"tets",
+            "mt4_name": "armstrong",
+            "mt4_login": "2017063992",
+            "commission_model": "ECN1",
+            "leverage": "1",
+            "regdate": "1516348046",
+            "balance": "46705.33"
+          },
+          {
+            "unique_code": "9181831",
+            "customer_account":"tets",
+            "mt4_name": "tom",
+            "mt4_login": "2017074854",
+            "commission_model": "ECN2",
+            "leverage": "1",
+            "regdate": "1516348046",
+            "balance": "5000"
+          },
+          {
+            "unique_code": "9181810",
+            "customer_account":"tets",
+            "mt4_name": "jiang",
+            "mt4_login": "2017068913",
+            "commission_model": "ECN1",
+            "leverage": "1",
+            "regdate": "1516348046",
+            "balance": "12865.89"
+          }
+        ]
+    }
+}
