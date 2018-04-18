@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, Form, Input, Button, Alert, Modal, message } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import JdbFooter from '../../components/footer/footer';
 import Logo from './logo-blue.png';
 import ForgetForm from './forget';
@@ -26,7 +27,7 @@ class LoginForm extends Component {
             this.setState({
                 submiting: true
             });
-            axios.post('/api/login/login',values)
+            axios.post('/api/login/login',qs.stringify(values))
             .then((res) => {
                 if(res.error.returnCode === 0){
                     this.setState({
@@ -53,9 +54,9 @@ class LoginForm extends Component {
         });
     };
     handleGetUser = (params) => {
-        axios.post('/api/user/detail',{
+        axios.post('/api/user/detail',qs.stringify({
             ...params
-        }).then((res) => {
+        })).then((res) => {
             const userinfo = {};
             userinfo.username = res.data.username;
             userinfo.english_name = res.data.english_name;

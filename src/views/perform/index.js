@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, Row, Col, Table, Divider, Icon } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import AgentTable from './agent';
 import CusTable from './customer';
 import SearchForm from './search';
@@ -16,11 +17,11 @@ class PerformIndex extends Component {
         }
     };
     initCurrent = (params) => {
-        axios.post('/api/report/current-user',{
+        axios.post('/api/report/current-user',qs.stringify({
             login_unique_code: JSON.parse(sessionStorage.getItem("altfx_user")).unique_code,
             unique_code: JSON.parse(sessionStorage.getItem("altfx_user")).unique_code,
             ...params
-        })
+        }))
         .then((res) => {
             this.setState({
                 trade : {

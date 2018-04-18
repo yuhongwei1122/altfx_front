@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input, Form, Spin, Tooltip, Divider, Icon, Select, Radio, Modal, Tag} from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const Option = Select.Option;
@@ -48,9 +49,9 @@ class Step1Form extends Component {
         const { form } = this.props;
         const account = e.target.value;
         if(e.target.value){
-            axios.post('/api/register/account-check',{
+            axios.post('/api/register/account-check',qs.stringify({
                 account: e.target.value
-            })
+            }))
             .then((res) => {
                 if(Number(res.error.returnCode) != 0){
                     Modal.info({

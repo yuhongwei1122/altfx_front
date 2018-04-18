@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table, Button, Modal, Tag, Notification, Select, message } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './search';
 const ButtonGroup = Button.Group;
@@ -36,11 +37,11 @@ class MemberTable extends Component {
         if(sessionStorage.getItem("altfx_user")){
             info = JSON.parse(sessionStorage.getItem("altfx_user"));
         }
-        axios.post('/api/member/subordinate',{
+        axios.post('/api/member/subordinate',qs.stringify({
             login_unique_code: info.unique_code,
             size: this.state.pagination.pageSize,  //每页数据条数
             ...params
-        }).then((res) => {
+        })).then((res) => {
             let pager = { ...this.state.pagination };
             this.setState({
                 pagination: {
@@ -65,10 +66,10 @@ class MemberTable extends Component {
         this.setState({
             confirmLoading: true
         });
-        axios.post('/api/member/apply-employee',{
+        axios.post('/api/member/apply-employee',qs.stringify({
             unique_code: this.state.unique_code,
             agent_code: this.state.employee_code
-        }).then((res) => {
+        })).then((res) => {
             if(Number(res.error.returnCode) === 0){
                 Notification.success({
                     message: '成功',

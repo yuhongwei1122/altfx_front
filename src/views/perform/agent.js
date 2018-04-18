@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table, Button, Modal, Tag, Card, Row, Col } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './agent_search';
 const ButtonGroup = Button.Group;
@@ -24,13 +25,13 @@ class AgentPerformTable extends Component {
     fetchTable = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         console.log(params);
-        axios.post('/api/report/agent-summary',{
+        axios.post('/api/report/agent-summary',qs.stringify({
             login_unique_code: JSON.parse(sessionStorage.getItem("altfx_user")).unique_code,
             from:this.props.from,
             to:this.props.to,
             size: this.state.pagination.pageSize,  //每页数据条数
             ...params
-        }).then((res) => {
+        })).then((res) => {
             let pager = { ...this.state.pagination };
             this.setState({
                 pagination: {

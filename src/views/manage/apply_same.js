@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input, Form, Spin, Tooltip, Divider, Icon, Select, Radio, Modal, Notification, message, Checkbox} from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const Option = Select.Option;
@@ -21,10 +22,10 @@ class ApplySameForm extends Component {
             console.log(values);
             if (!err) {
                 console.log(values);
-                axios.post('/api/user/mt4-apply',{
+                axios.post('/api/user/mt4-apply',qs.stringify({
                     unique_code: this.state.unique_code,
                     ...values
-                }).then((res) => {
+                })).then((res) => {
                     if(Number(res.error.returnCode) === 0){
                         this.props.form.resetFields();
                         Notification.success({

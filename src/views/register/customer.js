@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Steps, Button, Divider, Icon, Alert } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import Step1Form from './step1';
 import Step2Form from './step2';
 import Step3Form from './step3';
@@ -39,7 +40,7 @@ class CustomerForm extends Component {
                 }
             }
             data.birthday = data.birthday.formate("yyyy-MM-dd");
-            axios.post('/api/register/apply',data)
+            axios.post('/api/register/apply',qs.stringify(data))
             .then((res) => {
                 if(res.error.returnCode === 0){
                     this.props.history.push("/confirm/0");

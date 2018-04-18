@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, Row, Col, Table } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import {Chart, Axis, Tooltip, Geom} from "bizcharts";//引入图表插件
 
 const scale = {

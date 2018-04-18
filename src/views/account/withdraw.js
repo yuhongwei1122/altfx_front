@@ -3,6 +3,7 @@ import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, Tag, InputNumb
 import { timingSafeEqual } from 'crypto';
 import moment from 'moment';
 import axios from 'axios';
+import qs from 'qs';
 import sha512 from 'js-sha512';
 import config from "../../config";
 import FillBank from './fill_bank';
@@ -30,9 +31,7 @@ class WithdrawForm extends Component{
         };
     };
     handleGetMT4List = () => {
-        axios.post('/api/user/getmt4',{
-
-        }).then((res) => {
+        axios.post('/api/user/getmt4').then((res) => {
             this.setState({
                 mt4List : res.data
             });
@@ -54,9 +53,10 @@ class WithdrawForm extends Component{
     };
     getBalance = (value) => {
         const form = this.props.form;
-        axios.post('/api/user/user-account',{
-            account: ""
-        }).then((res) => {
+        axios.post('/api/user/user-account',qs.stringify({
+            mt4_login: value,
+            id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id
+        })).then((res) => {
             form.setFieldsValue({
                 "balance": res.data.balance
             });
@@ -64,18 +64,18 @@ class WithdrawForm extends Component{
     };
     getOrder = () => {
         const form = this.props.form;
-        axios.post('/api/cash/create-order',{
-            cash_type : 1
-        }).then((res) => {
+        axios.post('/api/cash/create-order',qs.stringify({
+            cash_type : 2
+        })).then((res) => {
             form.setFieldsValue({
                 "cash_order": res.data.cash_order,
             });
         });
     };
     getRate = () => {
-        axios.post('/api/cash/rate-query',{
+        axios.post('/api/cash/rate-query',qs.stringify({
             rate_type : 2
-        }).then((res) => {
+        })).then((res) => {
             this.setState({
                 rate: res.data.rate
             });
@@ -83,9 +83,9 @@ class WithdrawForm extends Component{
     };
     getUserDetail = () => {
         const form = this.props.form;
-        axios.post('/api/user/detail',{
+        axios.post('/api/user/detail',qs.stringify({
             user_id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id
-        }).then((res) => {
+        })).then((res) => {
             this.setState({
                 detail: res.data
             });
@@ -183,8 +183,8 @@ class WithdrawForm extends Component{
             values.card_no = this.state.card_no;
             values.city = this.state.city;
             values.province = this.state.province;
-            axios.post('/api/cash/withdraw',values
-            ).then((res) => {
+            axios.post('/api/cash/withdraw',qs.stringify(values
+            )).then((res) => {
                 this.setState({loading: false});
                 if(Number(res.error.returnCode) === 0){
                     Notification.success({

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, Row, Col, Table } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 
 class CusIndex extends Component {
     constructor(props){
@@ -11,9 +12,9 @@ class CusIndex extends Component {
         }
     };
     fetchData = (params = {}) => {
-        axios.post('/api/profit/rank',{
-			limit: 20,  //每页数据条数
-        }).then((res) => {
+        axios.post('/api/profit/rank',qs.stringify({
+			size: 20,  //每页数据条数
+        })).then((res) => {
             this.setState({
                 tableData : res.data.result
             });

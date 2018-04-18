@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input, Form, Spin } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
@@ -17,8 +18,8 @@ class FillBankForm extends Component {
           if (!err) {
             this.setState({loading: true});
             values.card_id = this.props.editData.card_id;
-            axios.post('/api/cash/update-card',values
-            ).then((res) => {
+            axios.post('/api/cash/update-card',qs.stringify(values
+            )).then((res) => {
                 this.setState({loading: false});
                 this.props.handleBankUpdateOk(values.city,values.province);
             });

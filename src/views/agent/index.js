@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, Row, Col, Table, message } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import {Chart, Axis, Geom, Tooltip, Coord, Legend, Label} from "bizcharts";//引入图表插件
 import G6 from '@antv/g6';
 import { DataView } from '@antv/data-set';

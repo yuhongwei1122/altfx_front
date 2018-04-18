@@ -3,6 +3,7 @@ import { Form, Row, Col, Input, Button, Icon, Select, DatePicker } from 'antd';
 import { timingSafeEqual } from 'crypto';
 import moment from 'moment';
 import axios from 'axios';
+import qs from 'qs';
 const RangePicker = DatePicker.RangePicker;
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -17,7 +18,7 @@ class SearchForm extends Component{
     handleSearch = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-          console.log('Received values of form: ', values);
+        //   console.log('Received values of form: ', values);
           const day = values.search_date;
           if(day){
             values.close_time_start = day[0].unix();
@@ -36,9 +37,7 @@ class SearchForm extends Component{
         });
     };
     handleGetMT4List = () => {
-        axios.post('/api/user/getmt4',{
-
-        }).then((res) => {
+        axios.post('/api/user/getmt4').then((res) => {
             this.setState({
                 mt4List : res.data
             });

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Tabs, Row, Col, List, Card, Divider, Icon, Button } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 
 const TabPane = Tabs.TabPane;
 
@@ -67,9 +68,9 @@ export default class UserBase extends Component{
     };
     
     componentDidMount(){
-        axios.post('/api/user/detail',{
+        axios.post('/api/user/detail',qs.stringify({
             user_id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id
-        }).then((res) => {
+        })).then((res) => {
             this.setState({
                 detail: res.data
             });

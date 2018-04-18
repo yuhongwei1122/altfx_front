@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Button, Modal, Icon } from 'antd';
 import axios from 'axios';
+// import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import EditForm from './add_bank';
 const ButtonGroup = Button.Group;
@@ -16,7 +17,7 @@ class BankTable extends Component {
     };
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
-        console.log(params);
+        // console.log(params);
         axios.post('/api/cash/card-list')
         .then((res) => {
             this.setState({

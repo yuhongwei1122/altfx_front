@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input, Form, Spin, InputNumber, Select } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const Option = Select.Option;
@@ -19,9 +20,7 @@ class editForm extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
             this.setState({loading: true});
-            axios.post('/api/user/transfer_confirm',{
-
-            }).then((res) => {
+            axios.post('/api/user/transfer_confirm').then((res) => {
                 if(Number(res.error.returnCode) === 0){
                     this.props.handleEditOk();
                 }else{
@@ -42,9 +41,7 @@ class editForm extends Component {
         }
     };
     handleGetMT4List = () => {
-        axios.post('/api/user/getmt4',{
-
-        }).then((res) => {
+        axios.post('/api/user/getmt4').then((res) => {
             this.setState({
                 mt4List : res.data,
                 mt4out: res.data
@@ -71,10 +68,10 @@ class editForm extends Component {
                     }
                 })
             });
-            axios.post('/api/user/user-account',{
+            axios.post('/api/user/user-account',qs.stringify({
                 mt4_login: value,
                 id:"" //当前登录用户的id
-            }).then((res) => {
+            })).then((res) => {
                 console.log(res.data.balance);
                 form.setFieldsValue({
                     "balance": res.data.balance,

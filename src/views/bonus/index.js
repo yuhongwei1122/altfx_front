@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table, Button, Modal, Tag, Card, Row, Col } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './search';
 const ButtonGroup = Button.Group;
@@ -27,11 +28,11 @@ class BonusTable extends Component {
     fetchTotal = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         console.log(params);
-        axios.post('/api/bonus/summary',{
+        axios.post('/api/bonus/summary',qs.stringify({
             login_unique_code: JSON.parse(sessionStorage.getItem("altfx_user")).unique_code,
             agent_unique_code: JSON.parse(sessionStorage.getItem("altfx_user")).invite_code,
             ...params
-        }).then((res) => {
+        })).then((res) => {
             this.setState({
                 total_bonus: res.data.total_bonus
             });
@@ -40,12 +41,12 @@ class BonusTable extends Component {
     fetchTable = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         console.log(params);
-        axios.post('/api/bonus/detail',{
+        axios.post('/api/bonus/detail',qs.stringify({
             login_unique_code: JSON.parse(sessionStorage.getItem("altfx_user")).unique_code,
             agent_unique_code: JSON.parse(sessionStorage.getItem("altfx_user")).invite_code,
             size: this.state.pagination.pageSize,  //每页数据条数
             ...params
-        }).then((res) => {
+        })).then((res) => {
             let pager = { ...this.state.pagination };
             this.setState({
                 pagination: {
@@ -72,7 +73,7 @@ class BonusTable extends Component {
         });
     };
     componentDidMount(){
-        console.log("did mount 中当前的页："+this.state.pagination.current);
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
         this.fetchData({page:1});
     };
     render() {

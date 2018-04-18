@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input, Form, Spin } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
@@ -17,8 +18,8 @@ class AddBankForm extends Component {
           if (!err) {
             this.setState({loading: true});
             values.id = this.props.editData.id;
-            axios.post('/platform/user/perms/update',values
-            ).then((res) => {
+            axios.post('/platform/user/perms/update',qs.stringify(values
+            )).then((res) => {
                 this.setState({loading: false});
                 this.props.handleEditOk();
             });

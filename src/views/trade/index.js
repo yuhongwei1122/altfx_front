@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Button, Modal } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './search';
 const ButtonGroup = Button.Group;
@@ -23,10 +24,10 @@ class TradeTable extends Component {
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         console.log(params);
-        axios.post('/api/trade/record',{
-            limit: this.state.pagination.pageSize,  //每页数据条数
+        axios.post('/api/trade/record',qs.stringify({
+            size: this.state.pagination.pageSize,  //每页数据条数
             ...params
-        }).then((res) => {
+        })).then((res) => {
             let pager = { ...this.state.pagination };
             this.setState({
                 pagination: {

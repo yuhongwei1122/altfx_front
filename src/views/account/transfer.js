@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Button, Modal } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import EditForm from './add_transfer';
 import EditAgentForm from './agent_transfer'
@@ -26,13 +27,11 @@ class TransferTable extends Component {
     };
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
-        console.log(params);
-        axios.get('/api/account/transfer',{
-            params: {
-				limit: this.state.pagination.pageSize,  //每页数据条数
-                ...params
-            }
-        }).then((res) => {
+        // console.log(params);
+        axios.post('/api/account/transfer',qs.stringify({
+            size: this.state.pagination.pageSize,  //每页数据条数
+            ...params
+        })).then((res) => {
             let pager = { ...this.state.pagination };
             this.setState({
                 pagination: {
@@ -80,10 +79,9 @@ class TransferTable extends Component {
         });
     };
     handleGetBalance = () => {
-        axios.post('/api/user/agent-account',{
-            mt4_login: "",
-            id:""
-        }).then((res) => {
+        axios.post('/api/user/agent-account',qs.stringify({
+            mt4_login: JSON.parse(sessionStorage.getItem("altfx_user")).unique_code
+        })).then((res) => {
             this.setState({
                 balance : res.data.balance
             });

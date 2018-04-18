@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input, Form, Spin, Alert } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
@@ -17,8 +18,8 @@ class ForgetForm extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
             this.setState({loading: true});
-            axios.post('/api/login/find-pwd',values
-            ).then((res) => {
+            axios.post('/api/login/find-pwd',qs.stringify(values
+            )).then((res) => {
                 this.props.form.resetFields();
                 this.setState({loading: false});
                 const text = "找回密码邮件已发送至您的邮箱（"+this.state.email+"），请登陆您的邮箱查看邮件进行设置新密码操作";
@@ -41,9 +42,9 @@ class ForgetForm extends Component {
     handleVaild = (rule, value, callback) => {
         const form = this.props.form;
         if(value){
-            axios.post('/api/register/account-check',{
-                account: ""
-            }).then((res) => {
+            axios.post('/api/register/account-check',qs.stringify({
+                account: value
+            })).then((res) => {
                 if(Number(res.error.returnCode) === 0){
                     callback('用户名不存在!');
                 }else{

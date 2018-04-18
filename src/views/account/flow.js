@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Button, Modal } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './flow_search';
 const ButtonGroup = Button.Group;
@@ -23,12 +24,10 @@ class FlowTable extends Component {
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         console.log(params);
-        axios.post('/api/trade/record',{
-            params: {
-				limit: this.state.pagination.pageSize,  //每页数据条数
-                ...params
-            }
-        }).then((res) => {
+        axios.post('/api/trade/record',qs.stringify({
+			size: this.state.pagination.pageSize,  //每页数据条数
+            ...params
+        })).then((res) => {
             let pager = { ...this.state.pagination };
             this.setState({
                 pagination: {
@@ -57,7 +56,7 @@ class FlowTable extends Component {
         });
     };
     componentDidMount(){
-        console.log("did mount 中当前的页："+this.state.pagination.current);
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
         this.fetchData({page:0});
     };
     render() {

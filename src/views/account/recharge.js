@@ -3,6 +3,7 @@ import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, Tag, InputNumb
 import { timingSafeEqual } from 'crypto';
 import moment from 'moment';
 import axios from 'axios';
+import qs from 'qs';
 import sha512 from 'js-sha512';
 import config from "../../config";
 const RangePicker = DatePicker.RangePicker;
@@ -21,9 +22,7 @@ class RechargeForm extends Component{
         };
     };
     handleGetMT4List = () => {
-        axios.post('/api/user/getmt4',{
-
-        }).then((res) => {
+        axios.post('/api/user/getmt4').then((res) => {
             this.setState({
                 mt4List : res.data
             });
@@ -45,9 +44,10 @@ class RechargeForm extends Component{
     };
     getBalance = (value) => {
         const form = this.props.form;
-        axios.post('/api/user/user-account',{
-            account: ""
-        }).then((res) => {
+        axios.post('/api/user/user-account',qs.stringify({
+            mt4_login: value,
+            id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id
+        })).then((res) => {
             form.setFieldsValue({
                 "balance": res.data.balance,
             });
@@ -58,18 +58,18 @@ class RechargeForm extends Component{
     };
     getOrder = () => {
         const form = this.props.form;
-        axios.post('/api/cash/create-order',{
-            account: ""
-        }).then((res) => {
+        axios.post('/api/cash/create-order',qs.stringify({
+            cash_type: 1
+        })).then((res) => {
             form.setFieldsValue({
                 "cash_order": res.data.cash_order,
             });
         });
     };
     getRate = () => {
-        axios.post('/api/cash/rate-query',{
-            account: ""
-        }).then((res) => {
+        axios.post('/api/cash/rate-query',qs.stringify({
+            rate_type: 1
+        })).then((res) => {
             this.setState({
                 rate: res.data.rate
             });
@@ -77,9 +77,9 @@ class RechargeForm extends Component{
     };
     getUserDetail = () => {
         const form = this.props.form;
-        axios.post('/api/user/detail',{
+        axios.post('/api/user/detail',qs.stringify({
             user_id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id
-        }).then((res) => {
+        })).then((res) => {
             this.setState({
                 detail: res.data
             });
@@ -102,8 +102,8 @@ class RechargeForm extends Component{
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
             this.setState({loading: true});
-            axios.post('/api/cash/charge',values
-            ).then((res) => {
+            axios.post('/api/cash/charge',qs.stringify(values
+            )).then((res) => {
                 this.setState({loading: false});
                 let env = (process && process.env && process.env.NODE_ENV) || 'production';
                 console.log(env);

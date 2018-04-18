@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Tabs, Row, Col, List, Card, Divider, Icon, Button } from 'antd';
 import axios from 'axios';
-
+import qs from 'qs';
 const TabPane = Tabs.TabPane;
 
 export default class AgentRuleTable extends Component{
@@ -33,10 +33,10 @@ export default class AgentRuleTable extends Component{
         };
     };
     fetchTable = (params) => {
-        axios.post('/api/commission/configuration',{
+        axios.post('/api/commission/configuration',qs.stringify({
             size:this.state.pagination.pageSize,
             ...params
-        }).then((res) => {
+        })).then((res) => {
             let pager = { ...this.state.pagination };
             this.setState({
                 pagination: {

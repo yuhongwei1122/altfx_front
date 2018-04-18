@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input, Form, Spin, Divider, Icon, Select, Radio, Modal, Notification, message} from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const Option = Select.Option;
@@ -21,13 +22,13 @@ class ChangePointForm extends Component {
             console.log(values);
             if (!err) {
                 console.log(values);
-                axios.post('/api/member/update-commission-model',{
+                axios.post('/api/member/update-commission-model',qs.stringify({
                     unique_code: this.props.editData.unique_code,
                     mt4_name: this.props.editData.mt4_name,
                     mt4_login: this.props.editData.mt4_login,
                     user_id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id,
                     ...values
-                }).then((res) => {
+                })).then((res) => {
                     if(Number(res.error.returnCode) === 0){
                         this.props.form.resetFields();
                         Notification.success({
