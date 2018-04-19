@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, Modal } from 'antd';
+import { Table, Button, Modal, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
@@ -10,6 +10,7 @@ class FlowTable extends Component {
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             tableData: [],
             pagination: {
                 showTotal: (total) => `共 ${total} 条记录`,
@@ -28,14 +29,20 @@ class FlowTable extends Component {
 			size: this.state.pagination.pageSize,  //每页数据条数
             ...params
         })).then((res) => {
-            let pager = { ...this.state.pagination };
-            this.setState({
-                pagination: {
-                    total : res.data.result_count,
-                    ...pager
-                },
-                tableData : res.data.result
-            });
+            if(Number(res.error.returnCode) === 0){
+                let pager = { ...this.state.pagination };
+                pager.total = Number(res.data.result_count);
+                this.setState({
+                    pagination: {
+                        total : Number(res.data.result_count),
+                        ...pager
+                    },
+                    tableData : res.data.result
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
+            
         });
     };
     handleChange = (pagination, filters, sorter) => {
@@ -55,9 +62,12 @@ class FlowTable extends Component {
             ...params
         });
     };
-    componentDidMount(){
-        // console.log("did mount 中当前的页："+this.state.pagination.current);
+    componentWillMount(){
+        this.toggleLoading();
         this.fetchData({page:0});
+    };
+    componentDidMount(){
+        this.toggleLoading();
     };
     render() {
         const columns = [
@@ -106,6 +116,7 @@ class FlowTable extends Component {
             },
         ];
         return (
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                        
             <div className="overview">
                 <div>
                     <SearchForm handleSearch={this.handleSearch}/>
@@ -119,6 +130,7 @@ class FlowTable extends Component {
                         onChange={this.handleChange} />
                 </div>
             </div>
+            </Spin>
         );
     }
 };

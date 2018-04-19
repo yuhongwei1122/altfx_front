@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input, Form, Spin, InputNumber, Select } from 'antd';
+import { Button, Input, Form, Spin, InputNumber, Select, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 const FormItem = Form.Item;
@@ -20,11 +20,13 @@ class editForm extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
             this.setState({loading: true});
-            axios.post('/api/user/transfer_confirm').then((res) => {
+            axios.post('/api/user/transfer_confirm',qs.stringify(values))
+            .then((res) => {
+                this.setState({loading: false});
                 if(Number(res.error.returnCode) === 0){
                     this.props.handleEditOk();
                 }else{
-                    console.log("有错误");
+                    message.error(res.error.returnUserMessage);
                 }
             });
             
@@ -90,11 +92,14 @@ class editForm extends Component {
                 mt4_login: value,
                 id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id //当前登录用户的id
             })).then((res) => {
-                // console.log(res.data.balance);
-                form.setFieldsValue({
-                    "balance": res.data.balance,
-                });
-                form.validateFields(['apply_amount'], { force: true });
+                if(Number(res.error.returnCode) === 0){
+                    form.setFieldsValue({
+                        "balance": res.data.balance,
+                    });
+                    form.validateFields(['apply_amount'], { force: true });
+                }else{
+                    message.error(res.error.returnUserMessage);
+                }
             });
         }else{
             this.setState({
@@ -102,8 +107,16 @@ class editForm extends Component {
             });
         }
     };
-    componentDidMount(){
+    componentWillMount(){
+        this.setState({
+            loading: true
+        });
         this.handleGetCusList();
+    };
+    componentDidMount(){
+        this.setState({
+            loading: false
+        });
     };
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -131,7 +144,7 @@ class editForm extends Component {
             },
         };
         const options = this.state.mt4List.map(d => <Option key={d.mt4_login}>{d.mt4_name}</Option>);
-        console.log(options);
+        // console.log(options);
         return (
             <Spin spinning={this.state.loading}>
                 <Form onSubmit={this.handleSubmit}>

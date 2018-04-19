@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input, Form, Spin } from 'antd';
+import { Button, Input, Form, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 const FormItem = Form.Item;
@@ -21,7 +21,11 @@ class FillBankForm extends Component {
             axios.post('/api/cash/update-card',qs.stringify(values
             )).then((res) => {
                 this.setState({loading: false});
-                this.props.handleBankUpdateOk(values.city,values.province);
+                if(Number(res.error.returnCode)===0){
+                    this.props.handleBankUpdateOk(values.city,values.province);
+                }else{
+                    message.error(res.error.returnUserMessage);
+                }
             });
           }
         });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, Modal, Icon } from 'antd';
+import { Table, Button, Modal, Icon, message, Spin } from 'antd';
 import axios from 'axios';
 // import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
@@ -10,19 +10,29 @@ class BankTable extends Component {
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             tableData: [],
             editVisabled: false,
             editData: {}
         }
+    };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading,
+        });
     };
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         // console.log(params);
         axios.post('/api/cash/card-list')
         .then((res) => {
-            this.setState({
-                tableData : res.data
-            });
+            if(Number(res.error.returnCode) === 0){
+                this.setState({
+                    tableData : res.data
+                });
+            }else{
+               message.error(re.error.returnUserMessage);
+            }
         });
     };
     handleEdit = () => {
@@ -40,8 +50,7 @@ class BankTable extends Component {
             editVisabled: false
         });
     };
-    componentDidMount(){
-        this.fetchData();
+    componentWillMount(){
         let info = {};
         if(sessionStorage.getItem("altfx_user")){
             info = sessionStorage.getItem("altfx_user");
@@ -52,6 +61,11 @@ class BankTable extends Component {
                 "english_name": info.english_name || "altfx"
             }
         });
+        this.toggleLoading();
+        this.fetchData();
+    };
+    componentDidMount(){
+        this.toggleLoading();
     };
     render() {
         const columns = [
@@ -80,6 +94,7 @@ class BankTable extends Component {
             },
         ];
         return (
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>            
             <div className="overview">
                 <div style={{overflow:"hidden"}}>
                     <Button onClick={this.handleEdit.bind(this)} style={{float:"right"}} type="primary"><Icon type="plus" />添加银行卡</Button>
@@ -104,6 +119,7 @@ class BankTable extends Component {
                     </div>
                 </Modal>
             </div>
+            </Spin>
         );
     }
 };

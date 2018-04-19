@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon, Select, DatePicker } from 'antd';
+import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, Spin, message} from 'antd';
 import { timingSafeEqual } from 'crypto';
 import moment from 'moment';
 import axios from 'axios';
@@ -12,19 +12,25 @@ class SearchForm extends Component{
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             mt4List: []
         };
+    };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading,
+        });
     };
     handleSearch = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
         //   console.log('Received values of form: ', values);
           const day = values.search_date;
-          if(day){
-            values.close_time_start = day[0].unix();
-            values.close_time_end = day[1].unix();
-            values.search_date = null;
-          }
+            if(day){
+                values.close_time_start = day[0].unix();
+                values.close_time_end = day[1].unix();
+                values.search_date = null;
+            }
           this.props.handleSearch(values);
         });
     };
@@ -32,15 +38,19 @@ class SearchForm extends Component{
         this.props.form.resetFields();
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-          console.log('Received values of form: ', values);
-          this.props.handleSearch(values);
+            console.log('Received values of form: ', values);
+            this.props.handleSearch(values);
         });
     };
     handleGetMT4List = () => {
         axios.post('/api/user/getmt4').then((res) => {
-            this.setState({
-                mt4List : res.data
-            });
+            if(Number(res.error.returnCode) === 0){
+                this.setState({
+                    mt4List : res.data
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     handleMt4Option = () =>{
@@ -49,8 +59,12 @@ class SearchForm extends Component{
             return <Option key={item.id} value={item.mt4_login}>{item.mt4_name}</Option>
         });
     };
-    componentDidMount = () => {
+    componentWillMount(){
+        this.toggleLoading();
         this.handleGetMT4List();
+    };
+    componentDidMount = () => {
+        this.toggleLoading();
     };
     
     render(){
@@ -67,6 +81,7 @@ class SearchForm extends Component{
             },
           };
         return(
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                        
             <Form
                 className="ant-advanced-search-form"
                 onSubmit={this.handleSearch}
@@ -161,6 +176,7 @@ class SearchForm extends Component{
                     </Col>
                 </Row>
             </Form>
+            </Spin>
         )
     }
 };

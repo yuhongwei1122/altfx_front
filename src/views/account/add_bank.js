@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input, Form, Spin } from 'antd';
+import { Button, Input, Form, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 const FormItem = Form.Item;
@@ -21,9 +21,23 @@ class AddBankForm extends Component {
             axios.post('/platform/user/perms/update',qs.stringify(values
             )).then((res) => {
                 this.setState({loading: false});
-                this.props.handleEditOk();
+                if(Number(res.error.returnCode) === 0){
+                    this.props.handleEditOk();
+                }else{
+                    message.error(res.error.retrunUserMessage);
+                }
             });
           }
+        });
+    };
+    componentWillMount(){
+        this.setState({
+            loading: true
+        });
+    };
+    componentDidMount(){
+        this.setState({
+            loading: false
         });
     };
     

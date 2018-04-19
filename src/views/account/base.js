@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tabs, Row, Col, List, Card, Divider, Icon, Button } from 'antd';
+import { Tabs, Row, Col, List, Card, Divider, Icon, Button, Spin,message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 
@@ -9,10 +9,16 @@ export default class UserBase extends Component{
     constructor(props){
         super();
         this.state = {
+            globalLoading: false,
             detail: {},
             rejectVisable: false,
             successVisable: false
         };
+    };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading,
+        });
     };
     getRowItems = (colums,detail) => {
         return colums.map((item)=>{
@@ -66,15 +72,22 @@ export default class UserBase extends Component{
             );
         });
     };
-    
-    componentDidMount(){
+    componentWillMount(){
+        this.toggleLoading();
         axios.post('/api/user/detail',qs.stringify({
             user_id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id
         })).then((res) => {
-            this.setState({
-                detail: res.data
-            });
+            if(Number(res.error.returnCode) === 0){
+                this.setState({
+                    detail: res.data
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
+    };
+    componentDidMount(){
+        this.toggleLoading();
     };
     render(){
         const colums = [
@@ -133,11 +146,19 @@ export default class UserBase extends Component{
             {
                 key: "wechat",
                 name: "wechat",
-                typeFlag: true
+                typeFlag: true,
+                render:(text) => {
+                    if(text !== 'undefined'){
+                        return text;
+                    }else{
+                        return "--"
+                    }
+                }
             }
         ];
         const { detail } = this.state;
         return(
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                        
             <div style={{marginBottom:20,marginTop:20}}>
                 <Tabs tabPosition="top">
                     <TabPane tab="基本信息" key="1">
@@ -155,6 +176,7 @@ export default class UserBase extends Component{
                     }
                 </Tabs>
             </div>
+            </Spin>
         )
     }
 };
