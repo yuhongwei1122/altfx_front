@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Button, Modal, Tag, Notification, Select, Row, Col, Card } from 'antd';
+import { Table, Button, Modal, Tag, Notification, Select, Row, Col, Card, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
@@ -13,6 +13,7 @@ class TradeAccountTable extends Component {
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             tableData: [],
             pagination: {
                 showTotal: (total) => `共 ${total} 条记录`,
@@ -28,6 +29,11 @@ class TradeAccountTable extends Component {
             editVisabled: false
         }
     };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading
+        });
+    };
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         console.log(params);
@@ -36,15 +42,19 @@ class TradeAccountTable extends Component {
             size: this.state.pagination.pageSize,  //每页数据条数
             ...params
         })).then((res) => {
-            let pager = { ...this.state.pagination };
-            pager.total = Number(res.data.result_count);
-            this.setState({
-                pagination: {
-                    total : Number(res.data.result_count),
-                    ...pager
-                },
-                tableData : res.data.result
-            });
+            if(Number(res.error.returnCode) === 0){
+                let pager = { ...this.state.pagination };
+                pager.total = Number(res.data.result_count);
+                this.setState({
+                    pagination: {
+                        total : Number(res.data.result_count),
+                        ...pager
+                    },
+                    tableData : res.data.result
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     handleChangePoint = (unique_code,mt4_name,mt4_login,commission_model) => {
@@ -69,12 +79,17 @@ class TradeAccountTable extends Component {
             }
         });
     };
-    componentDidMount(){
+    componentWillMount(){
+        this.toggleLoading();
         this.setState({
             unique_code: this.props.match.params.unique_code || "",
             username: this.props.match.params.username || "",
         });
         this.fetchData({page:1});
+    };
+    componentDidMount(){
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
+        this.toggleLoading();
     };
     render() {
         const columns = [
@@ -130,6 +145,7 @@ class TradeAccountTable extends Component {
             }
         ];
         return (
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                                
             <div className="overview" style={{marginTop:"30px"}}>
                 <Row gutter={24}>
                     <Col span={8}>
@@ -161,6 +177,7 @@ class TradeAccountTable extends Component {
                     </div>
                 </Modal>              
             </div>
+            </Spin>
         );
     }
 };

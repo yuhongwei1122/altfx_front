@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, Row, Col, Table } from 'antd';
+import { Button, Card, Row, Col, Table, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 
@@ -7,17 +7,27 @@ class CusIndex extends Component {
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             tableData: [],
             trade:{}
         }
+    };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading
+        });
     };
     fetchData = (params = {}) => {
         axios.post('/api/profit/rank',qs.stringify({
 			size: 20,  //每页数据条数
         })).then((res) => {
-            this.setState({
-                tableData : res.data.result
-            });
+            if(Number(res.error.returnCode) === 0){
+                this.setState({
+                    tableData : res.data.result
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     handleRecharge = () => {
@@ -39,9 +49,13 @@ class CusIndex extends Component {
             });
         });
     };
-    componentDidMount(){
+    componentWillMount(){
         this.fetchData();
         this.initCashAccount();
+    };
+    componentDidMount(){
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
+        this.toggleLoading();
     };
     render() {
         const columns = [
@@ -67,6 +81,7 @@ class CusIndex extends Component {
             }
         ];
         return (
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                   
             <div className="overview">
                 <div style={{marginTop:10}}>
                     <Row gutter={24} style={{marginBottom:20}}>
@@ -107,6 +122,7 @@ class CusIndex extends Component {
                     pagination={false} />
                 </Card>
             </div>
+            </Spin>
         );
     }
 };

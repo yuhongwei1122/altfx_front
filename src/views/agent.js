@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, Row, Col, Table } from 'antd';
+import { Button, Card, Row, Col, Table, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import {Chart, Axis, Tooltip, Geom} from "bizcharts";//引入图表插件
@@ -21,11 +21,17 @@ class AgentIndex extends Component {
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             tableData: {},
             trade: {},
             employee: false,
             trends:{}
         }
+    };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading
+        });
     };
     fetchData = (params = {}) => {
         axios.post('/api/commission/seven-trends')
@@ -57,13 +63,14 @@ class AgentIndex extends Component {
     getSevenTrends = () => {
         axios.post('/api/commission/seven-trends')
         .then((res) => {
-            console.log("七日反佣",res.data);
+            // console.log("七日反佣",res.data);
             this.setState({
                 trends : res.data
             });
         });
     };
-    componentDidMount(){
+    componentWillMount(){
+        this.toggleLoading();
         this.getSevenTrends();
         let info = {};
         if(sessionStorage.getItem("altfx_user")){
@@ -77,6 +84,10 @@ class AgentIndex extends Component {
             employee: Number(info.employee) === 0 ? false : true
         });
     };
+    componentDidMount(){
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
+        this.toggleLoading();
+    };
     render() {
         let chartData = [];
         let trends = this.state.trends || {};
@@ -88,6 +99,7 @@ class AgentIndex extends Component {
         }
         console.log(chartData);
         return (
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
             <div className="overview">
                 {!this.state.employee ? <div style={{marginTop:10}}>
                     <Row gutter={24} style={{marginBottom:20}}>
@@ -128,6 +140,7 @@ class AgentIndex extends Component {
                     </Chart>
                 </Card>
             </div>
+            </Spin>
         );
     }
 };

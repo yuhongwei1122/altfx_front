@@ -29,7 +29,7 @@ class LoginForm extends Component {
             });
             axios.post('/api/login/login',qs.stringify(values))
             .then((res) => {
-                if(res.error.returnCode === 0){
+                if(Number(res.error.returnCode) === 0){
                     this.setState({
                         submiting: false,
                         error: ""
@@ -57,18 +57,25 @@ class LoginForm extends Component {
         axios.post('/api/user/detail',qs.stringify({
             ...params
         })).then((res) => {
-            const userinfo = {};
-            userinfo.username = res.data.username;
-            userinfo.english_name = res.data.english_name;
-            userinfo.account = res.data.account;
-            userinfo.unique_code = res.data.unique_code;
-            userinfo.employee = res.data['employee'] ? res.data['employee'] : 0,
-            userinfo.user_id = res.data.id;
-            userinfo.role = res.data.role;
-            userinfo.token = params.token;
-            userinfo.invite_code = res.data.invite_code;
-            sessionStorage.setItem("altfx_user",JSON.stringify(userinfo));
-            this.props.history.push("/overview");
+            if(Number(res.error.returnCode) === 0){
+                const userinfo = {};
+                userinfo.username = res.data.username;
+                userinfo.english_name = res.data.english_name;
+                userinfo.account = res.data.account;
+                userinfo.unique_code = res.data.unique_code;
+                userinfo.employee = res.data['employee'] ? res.data['employee'] : 0,
+                userinfo.user_id = res.data.id;
+                userinfo.role = res.data.role;
+                userinfo.token = params.token;
+                userinfo.invite_code = res.data.invite_code;
+                sessionStorage.setItem("altfx_user",JSON.stringify(userinfo));
+                this.props.history.push("/overview");
+            }else{
+                this.setState({
+                    submiting: false,
+                    error: res.error.returnUserMessage
+                });
+            }
         });
     };
     handleForget = () => {

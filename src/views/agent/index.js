@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, Row, Col, Table, message } from 'antd';
+import { Button, Card, Row, Col, Table, message, Spin } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import {Chart, Axis, Geom, Tooltip, Coord, Legend, Label} from "bizcharts";//引入图表插件
@@ -10,10 +10,16 @@ class AgentIndex extends Component {
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             distribut: [],
             employee: false,
             organ:{}
         }
+    };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading
+        });
     };
     fetchData = () => {
         axios.post('/api/commission/organization')
@@ -71,9 +77,13 @@ class AgentIndex extends Component {
         tree.edge().shape('smooth');
         tree.render();
     };
-    componentDidMount(){
+    componentWillMount(){
+        this.toggleLoading();
         this.getYesterdayTrends();
         this.fetchData();
+    };
+    componentDidMount(){
+        this.toggleLoading();
     };
     render() {
         const data = [];
@@ -98,6 +108,7 @@ class AgentIndex extends Component {
             }
         };
         return (
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
             <div className="overview">
                 <Card title="昨日返佣来源分布" style={{marginTop:20,marginBottom:30}}>
                     <Chart height={300} data={dv} scale={cols} padding={[ 20, 20, 20, 20 ]} forceFit>
@@ -129,6 +140,7 @@ class AgentIndex extends Component {
                     <div id="mountNode" style={{minHeight:400}}></div>
                 </Card>
             </div>
+            </Spin>
         );
     }
 };

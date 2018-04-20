@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Steps, Button, Divider, Icon, Alert } from 'antd';
+import { Steps, Button, Divider, Icon, Alert, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import Step1Form from './step1';
@@ -26,7 +26,7 @@ class CustomerForm extends Component {
             formdata: {...formdata,...params}
         });
         if(current === 3){//代表已经完成注册
-            console.log("提交注册信息");
+            // console.log("提交注册信息");
             const data = {...formdata,...params}
             if(data.commission_model == 'STP'){
                 if(Number(data.extra_fee) === 1){//有手续费
@@ -42,18 +42,22 @@ class CustomerForm extends Component {
             data.birthday = data.birthday.formate("yyyy-MM-dd");
             axios.post('/api/register/apply',qs.stringify(data))
             .then((res) => {
-                if(res.error.returnCode === 0){
-                    this.props.history.push("/confirm/0");
+                if(Number(res.error.returnCode) === 0){
+                    if(res.error.returnCode === 0){
+                        this.props.history.push("/confirm/0");
+                    }else{
+                        this.setState({
+                            submiting: false
+                        });
+                        return (<Alert
+                            message="Error"
+                            description={res.error.returnUserMessage}
+                            type="error"
+                            showIcon
+                        />)
+                    }
                 }else{
-                    this.setState({
-                        submiting: false
-                    });
-                    return (<Alert
-                        message="Error"
-                        description={res.error.returnUserMessage}
-                        type="error"
-                        showIcon
-                    />)
+                    message.error(res.error.returnUserMessage);
                 }
             }).catch((error) => {
                 this.setState({

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, Modal } from 'antd';
+import { Table, Button, Modal, message, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
@@ -10,6 +10,7 @@ class TradeTable extends Component {
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             tableData: [],
             pagination: {
                 showTotal: (total) => `共 ${total} 条记录`,
@@ -21,28 +22,33 @@ class TradeTable extends Component {
             }
         }
     };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading
+        });
+    };
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
-        console.log(params);
         axios.post('/api/trade/record',qs.stringify({
             size: this.state.pagination.pageSize,  //每页数据条数
             ...params
         })).then((res) => {
-            let pager = { ...this.state.pagination };
-            pager.total = Number(res.data.result_count);
-            this.setState({
-                pagination: {
-                    total : res.data.result_count,
-                    ...pager
-                },
-                tableData : res.data.result
-            });
+            if(Number(res.error.returnCode) === 0){
+                let pager = { ...this.state.pagination };
+                pager.total = Number(res.data.result_count);
+                this.setState({
+                    pagination: {
+                        total : res.data.result_count,
+                        ...pager
+                    },
+                    tableData : res.data.result
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     handleChange = (pagination, filters, sorter) => {
-        // console.log(filters);
-        // const type = {type: filters['type'].join("") || ''};
-        
         this.setState({
             pagination : Object.assign(this.state.pagination, pagination)
         });
@@ -56,9 +62,13 @@ class TradeTable extends Component {
             ...params
         });
     };
-    componentDidMount(){
-        console.log("did mount 中当前的页："+this.state.pagination.current);
+    componentWillMount(){
+        this.toggleLoading();
         this.fetchData({page:0});
+    };
+    componentDidMount(){
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
+        this.toggleLoading();
     };
     render() {
         const columns = [
@@ -107,6 +117,7 @@ class TradeTable extends Component {
             },
         ];
         return (
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
             <div className="overview">
                 <div>
                     <SearchForm handleSearch={this.handleSearch}/>
@@ -120,6 +131,7 @@ class TradeTable extends Component {
                         onChange={this.handleChange} />
                 </div>
             </div>
+            </Spin>
         );
     }
 };

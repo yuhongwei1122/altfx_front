@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Button, Modal, Tag, Notification, Select, message } from 'antd';
+import { Table, Button, Modal, Tag, Notification, Select, message, Spin } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
@@ -12,6 +12,7 @@ class MemberTable extends Component {
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             tableData: [],
             pagination: {
                 showTotal: (total) => `共 ${total} 条记录`,
@@ -30,9 +31,13 @@ class MemberTable extends Component {
             employee_code:""
         }
     };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading
+        });
+    };
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
-        console.log(params);
         let info = {};
         if(sessionStorage.getItem("altfx_user")){
             info = JSON.parse(sessionStorage.getItem("altfx_user"));
@@ -42,16 +47,20 @@ class MemberTable extends Component {
             size: this.state.pagination.pageSize,  //每页数据条数
             ...params
         })).then((res) => {
-            let pager = { ...this.state.pagination };
-            pager.total = Number(res.data.result_count);
-            this.setState({
-                pagination: {
-                    total : Number(res.data.result_count),
-                    ...pager
-                },
-                tableData : res.data.result,
-                uniqueList : res.data.invite_relation
-            });
+            if(Number(res.error.returnCode) === 0){
+                let pager = { ...this.state.pagination };
+                pager.total = Number(res.data.result_count);
+                this.setState({
+                    pagination: {
+                        total : Number(res.data.result_count),
+                        ...pager
+                    },
+                    tableData : res.data.result,
+                    uniqueList : res.data.invite_relation
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     handleSearch = (params) => {
@@ -113,7 +122,8 @@ class MemberTable extends Component {
             return true;
         }
     };
-    componentDidMount(){
+    componentWillMount(){
+        this.toggleLoading();
         let info = {};
         if(sessionStorage.getItem("altfx_user")){
             info = JSON.parse(sessionStorage.getItem("altfx_user"));
@@ -131,8 +141,12 @@ class MemberTable extends Component {
                 unique_code: info.unique_code
             });
         }
-        console.log("did mount 中当前的页："+this.state.pagination.current);
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
         this.fetchData({page:1,unique_code:info.unique_code});
+    };
+    componentDidMount(){
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
+        this.toggleLoading();
     };
     render() {
         const columns = [
@@ -192,6 +206,7 @@ class MemberTable extends Component {
             return <Tag color="blue" key={item} onClick={this.handleSearch.bind(this,{"unique_code":item})}>{item}&gt;</Tag>;
         });
         return (
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                                
             <div className="overview" style={{marginTop:"15px"}}>
                 <div style={{overflow:"hidden"}}>
                     <SearchForm handleSearch={this.handleSearch}/>
@@ -221,6 +236,7 @@ class MemberTable extends Component {
                     </div>
                 </Modal>            
             </div>
+            </Spin>
         );
     }
 };

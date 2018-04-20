@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon, Select, DatePicker } from 'antd';
+import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, message } from 'antd';
 import { timingSafeEqual } from 'crypto';
 import moment from 'moment';
 import axios from 'axios';
@@ -17,13 +17,13 @@ class SearchForm extends Component{
     handleSearch = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-          console.log('Received values of form: ', values);
-          const day = values.search_date;
-          if(day){
-            values.close_time_start = day[0].unix();
-            values.close_time_end = day[1].unix();
-            values.search_date = null;
-          }
+            console.log('Received values of form: ', values);
+            const day = values.search_date;
+            if(day){
+                values.close_time_start = day[0].unix();
+                values.close_time_end = day[1].unix();
+                values.search_date = null;
+            }
           this.props.handleSearch(values);
         });
     };
@@ -31,17 +31,19 @@ class SearchForm extends Component{
         this.props.form.resetFields();
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-          console.log('Received values of form: ', values);
-          this.props.handleSearch(values);
+            console.log('Received values of form: ', values);
+            this.props.handleSearch(values);
         });
     };
     handleGetMT4List = () => {
-        axios.post('/api/user/getmt4',{
-
-        }).then((res) => {
-            this.setState({
-                mt4List : res.data
-            });
+        axios.post('/api/user/getmt4').then((res) => {
+            if(Number(res.error.returnCode) === 0){
+                this.setState({ 
+                    mt4List : res.data
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     handleMt4Option = () =>{
@@ -53,7 +55,6 @@ class SearchForm extends Component{
     componentDidMount = () => {
         this.handleGetMT4List();
     };
-    
     render(){
         const { getFieldDecorator } = this.props.form;
         const state = this.state;

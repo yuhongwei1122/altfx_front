@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Tabs, Row, Col, List, Card, Divider, Icon, Button } from 'antd';
+import { Table, Tabs, Row, Col, List, Card, Divider, Icon, Button, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 const TabPane = Tabs.TabPane;
@@ -8,6 +8,7 @@ export default class AgentRuleTable extends Component{
     constructor(props){
         super();
         this.state = {
+            globalLoading: false,
             tableData: [],
             parent: [],
             pagination: {
@@ -32,21 +33,30 @@ export default class AgentRuleTable extends Component{
             ]
         };
     };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading
+        });
+    };
     fetchTable = (params) => {
         axios.post('/api/commission/configuration',qs.stringify({
             size:this.state.pagination.pageSize,
             ...params
         })).then((res) => {
-            let pager = { ...this.state.pagination };
-            pager.total = Number(res.data.result_count);
-            this.setState({
-                pagination: {
-                    total : Number(res.data.result_count),
-                    ...pager
-                },
-                tableData : res.data.down
-            });
-            this.handleUpData(res.data.up);
+            if(Number(res.error.returnCode)){
+                let pager = { ...this.state.pagination };
+                pager.total = Number(res.data.result_count);
+                this.setState({
+                    pagination: {
+                        total : Number(res.data.result_count),
+                        ...pager
+                    },
+                    tableData : res.data.down
+                });
+                this.handleUpData(res.data.up);
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     handleUpData = (data) => {
@@ -70,8 +80,13 @@ export default class AgentRuleTable extends Component{
             data: up
         });
     };
+    componentWillMount(){
+        this.toggleLoading();
+        this.fetchData({page:0});
+    };
     componentDidMount(){
-        this.fetchTable({page:1});
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
+        this.toggleLoading();
     };
     render(){
         const formItemLayout = {
@@ -199,6 +214,7 @@ export default class AgentRuleTable extends Component{
             }
         ];
         return(
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
             <div style={{marginBottom:20,marginTop:10}}>
                 <Tabs tabPosition="top">
                     <TabPane tab="下级返佣规则" key="1">
@@ -238,6 +254,7 @@ export default class AgentRuleTable extends Component{
                     </TabPane>
                 </Tabs>
             </div>
+            </Spin>
         )
     }
 };

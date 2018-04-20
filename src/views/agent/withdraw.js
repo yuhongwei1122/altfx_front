@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, Tag, InputNumber, message, Notification, Modal } from 'antd';
+import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, Tag, InputNumber, message, Notification, Modal, Spin, message } from 'antd';
 import { timingSafeEqual } from 'crypto';
 import moment from 'moment';
 import qs from 'qs';
@@ -15,6 +15,7 @@ class WithdrawForm extends Component{
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             mt4List: [],
             rate: "",
             detail:{},
@@ -29,6 +30,11 @@ class WithdrawForm extends Component{
             opening_bank: "",
             card_no: ""
         };
+    };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading
+        });
     };
     handleGetMT4List = () => {
         axios.post('/api/user/getmt4').then((res) => {
@@ -76,9 +82,13 @@ class WithdrawForm extends Component{
         axios.post('/api/cash/rate-query',qs.stringify({
             rate_type : 2
         })).then((res) => {
-            this.setState({
-                rate: res.data.rate
-            });
+            if(Number(res.error.returnCode) === 0){
+                this.setState({
+                    rate: res.data.rate
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     getUserDetail = () => {
@@ -86,12 +96,16 @@ class WithdrawForm extends Component{
         axios.post('/api/user/detail',qs.stringify({
             user_id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id
         })).then((res) => {
-            this.setState({
-                detail: res.data
-            });
-            form.setFieldsValue({
-                "username": res.data.english_name,
-            });
+            if(Number(res.error.returnCode) === 0){
+                this.setState({
+                    detail: res.data
+                });
+                form.setFieldsValue({
+                    "username": res.data.english_name,
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     getBankList = () => {
@@ -205,14 +219,18 @@ class WithdrawForm extends Component{
           }
         });
     };
-    componentDidMount = () => {
+    componentWillMount(){
+        this.toggleLoading();
         this.getBankList();
         this.handleGetMT4List();
         this.getOrder();
         this.getRate();
         this.getUserDetail();
     };
-    
+    componentDidMount(){
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
+        this.toggleLoading();
+    };
     render(){
         const { getFieldDecorator } = this.props.form;
         const state = this.state;
@@ -239,6 +257,7 @@ class WithdrawForm extends Component{
             },
         };
         return(
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                                
             <div style={{marginTop:30}}>
                 <Form
                     className="ant-advanced-search-form"
@@ -387,6 +406,7 @@ class WithdrawForm extends Component{
                     </div>
                 </Modal>
             </div>
+            </Spin>
         )
     }
 };

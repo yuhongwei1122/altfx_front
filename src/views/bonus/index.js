@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Button, Modal, Tag, Card, Row, Col } from 'antd';
+import { Table, Button, Modal, Tag, Card, Row, Col, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
@@ -11,6 +11,7 @@ class BonusTable extends Component {
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             tableData: [],
             pagination: {
                 showTotal: (total) => `共 ${total} 条记录`,
@@ -25,6 +26,11 @@ class BonusTable extends Component {
             total_users: ""
         }
     };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading
+        });
+    };
     fetchTotal = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         console.log(params);
@@ -33,9 +39,13 @@ class BonusTable extends Component {
             agent_unique_code: JSON.parse(sessionStorage.getItem("altfx_user")).invite_code,
             ...params
         })).then((res) => {
-            this.setState({
-                total_bonus: res.data.total_bonus
-            });
+            if(Number(res.error.returnCode) === 0){
+                this.setState({
+                    total_bonus: res.data.total_bonus
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     fetchTable = (params = {}) => {
@@ -47,15 +57,19 @@ class BonusTable extends Component {
             size: this.state.pagination.pageSize,  //每页数据条数
             ...params
         })).then((res) => {
-            let pager = { ...this.state.pagination };
-            pager.total = Number(res.data.result_count);
-            this.setState({
-                pagination: {
-                    total : Number(res.data.result_count),
-                    ...pager
-                },
-                tableData : res.data.result
-            });
+            if(Number(res.error.returnCode) === 0){
+                let pager = { ...this.state.pagination };
+                pager.total = Number(res.data.result_count);
+                this.setState({
+                    pagination: {
+                        total : Number(res.data.result_count),
+                        ...pager
+                    },
+                    tableData : res.data.result
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     fetchData = (params) => {
@@ -73,9 +87,13 @@ class BonusTable extends Component {
             ...params
         });
     };
+    componentWillMount(){
+        this.toggleLoading();
+        this.fetchData({page:0});
+    };
     componentDidMount(){
         // console.log("did mount 中当前的页："+this.state.pagination.current);
-        this.fetchData({page:1});
+        this.toggleLoading();
     };
     render() {
         const columns = [
@@ -114,6 +132,7 @@ class BonusTable extends Component {
             }
         ];
         return (
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
             <div className="report">
                 <div style={{marginTop:10}}>
                     <SearchForm handleSearch={this.handleSearch}/>
@@ -137,6 +156,7 @@ class BonusTable extends Component {
                         scroll={{ x: 1170,y: 240 }} />
                 </div>
             </div>
+            </Spin>
         );
     }
 };

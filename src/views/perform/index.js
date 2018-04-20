@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, Row, Col, Table, Divider, Icon } from 'antd';
+import { Button, Card, Row, Col, Table, Divider, Icon, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import AgentTable from './agent';
@@ -10,11 +10,16 @@ class PerformIndex extends Component {
     constructor(props){
         super(props);
         this.state = {
-            tableData: {},
+            globalLoading:false,
             trade: {},
             from: "",
             to:""
         }
+    };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading
+        });
     };
     initCurrent = (params) => {
         axios.post('/api/report/current-user',qs.stringify({
@@ -23,13 +28,17 @@ class PerformIndex extends Component {
             ...params
         }))
         .then((res) => {
-            this.setState({
-                trade : {
-                    total_customer_trade_profit: Number(res.data.total_customer_trade_profit) ? Number(res.data.total_customer_trade_profit).toFixed(2) : 0,
-                    total_customer_trade_volume: Number(res.data.total_customer_trade_volume)? Number(res.data.total_customer_trade_volume).toFixed(2) : 0,
-                    total_commission: Number(res.data.total_commission)? Number(res.data.total_commission).toFixed(2) : 0
-                }
-            });
+            if(Number(res.error.returnCode) === 0){
+                this.setState({
+                    trade : {
+                        total_customer_trade_profit: Number(res.data.total_customer_trade_profit) ? Number(res.data.total_customer_trade_profit).toFixed(2) : 0,
+                        total_customer_trade_volume: Number(res.data.total_customer_trade_volume)? Number(res.data.total_customer_trade_volume).toFixed(2) : 0,
+                        total_commission: Number(res.data.total_commission)? Number(res.data.total_commission).toFixed(2) : 0
+                    }
+                });
+            }else{
+                message.error(res.error.returnUserMessage);
+            }
         });
     };
     handleSearch = (params) => {
@@ -41,11 +50,17 @@ class PerformIndex extends Component {
         this.refs.getAgentButton.handleSearch(params);
         this.refs.getCustomerButton.handleSearch(params);
     };
-    componentDidMount(){
+    componentWillMount(){
+        this.toggleLoading();
         this.initCurrent({});
+    };
+    componentDidMount(){
+        // console.log("did mount 中当前的页："+this.state.pagination.current);
+        this.toggleLoading();
     };
     render() {
         return (
+            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
             <div className="overview">
                 <div style={{marginTop:20}}>
                     <SearchForm handleSearch={this.handleSearch}/>
@@ -78,6 +93,7 @@ class PerformIndex extends Component {
                     <CusTable ref="getCustomerButton" from={this.state.from} to={this.state.to}/>
                 </div>
             </div>
+            </Spin>
         );
     }
 };
