@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, Tag, InputNumber, message, Notification, Modal, Spin, message } from 'antd';
+import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, Tag, InputNumber, message, Notification, Modal, Spin } from 'antd';
 import { timingSafeEqual } from 'crypto';
 import moment from 'moment';
 import qs from 'qs';

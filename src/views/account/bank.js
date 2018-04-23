@@ -31,7 +31,7 @@ class BankTable extends Component {
                     tableData : res.data
                 });
             }else{
-               message.error(re.error.returnUserMessage);
+               message.error(res.error.returnUserMessage);
             }
         });
     };
