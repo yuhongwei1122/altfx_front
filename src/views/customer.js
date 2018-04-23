@@ -50,6 +50,7 @@ class CusIndex extends Component {
         });
     };
     componentWillMount(){
+        this.toggleLoading();
         this.fetchData();
         this.initCashAccount();
     };
