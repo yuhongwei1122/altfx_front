@@ -30,6 +30,8 @@ class TradeTable extends Component {
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         axios.post('/api/trade/record',qs.stringify({
+            trade_type: 1,
+            user_id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id,
             size: this.state.pagination.pageSize,  //每页数据条数
             ...params
         })).then((res) => {

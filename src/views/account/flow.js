@@ -31,6 +31,7 @@ class FlowTable extends Component {
         // console.log("fetchData中page=："+this.state.pagination.current);
         console.log(params);
         axios.post('/api/trade/record',qs.stringify({
+            user_id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id,
 			size: this.state.pagination.pageSize,  //每页数据条数
             ...params
         })).then((res) => {
