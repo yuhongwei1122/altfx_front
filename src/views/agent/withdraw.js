@@ -111,7 +111,7 @@ class WithdrawForm extends Component{
     getBankList = () => {
         axios.post('/api/cash/card-list')
         .then((res) => {
-            if(rs.data && res.data.length > 0){
+            if(res.data && res.data.length > 0){
                 this.setState({
                     bankList: res.data
                 });
