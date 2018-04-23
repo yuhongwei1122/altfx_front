@@ -36,6 +36,7 @@ class JdbHeader extends Component {
         }else if(e.key === 'logout'){
             this.onMenuClick();
         }else{
+            this.props.history.push("/baseinfo");
             console.log("other");
         }
     };
@@ -75,7 +76,7 @@ class JdbHeader extends Component {
         const menu = (
             <Menu className="menu" onClick={this.handleClick}>
                 <Menu.Item key="base">
-                    <Link to="baseinfo"><Icon type="eye"/>我的信息</Link> 
+                    <Icon type="eye"/>我的信息
                 </Menu.Item>  
                 <Menu.Item key="forget">
                     <Icon type="edit"/>修改密码

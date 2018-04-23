@@ -77,7 +77,7 @@ class WithdrawForm extends Component{
             rate_type : 2
         })).then((res) => {
             this.setState({
-                rate: res.data.rate
+                rate: res.data.rate.rate
             });
         });
     };

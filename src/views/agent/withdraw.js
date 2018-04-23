@@ -84,7 +84,7 @@ class WithdrawForm extends Component{
         })).then((res) => {
             if(Number(res.error.returnCode) === 0){
                 this.setState({
-                    rate: res.data.rate
+                    rate: res.data.rate.rate
                 });
             }else{
                 message.error(res.error.returnUserMessage);
@@ -111,7 +111,7 @@ class WithdrawForm extends Component{
     getBankList = () => {
         axios.post('/api/cash/card-list')
         .then((res) => {
-            if(res.data.length > 0){
+            if(rs.data && res.data.length > 0){
                 this.setState({
                     bankList: res.data
                 });

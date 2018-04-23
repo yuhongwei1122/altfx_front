@@ -72,7 +72,7 @@ class RechargeForm extends Component{
             rate_type: 1
         })).then((res) => {
             this.setState({
-                rate: res.data.rate
+                rate: res.data.rate.rate
             });
         });
     };
