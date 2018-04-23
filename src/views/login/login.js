@@ -29,6 +29,7 @@ class LoginForm extends Component {
             });
             axios.post('/api/login/login',qs.stringify(values))
             .then((res) => {
+                // console.log(res.data);
                 if(Number(res.error.returnCode) === 0){
                     this.setState({
                         submiting: false,

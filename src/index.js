@@ -46,12 +46,10 @@ axios.interceptors.request.use(function (config) {
         }
         // data = config.data;
     }
-    if(userinfo['token']!== undefined && userinfo['token']!== '' && userinfo['token']!== null){
-        data.token = userinfo['token'];
-    }else{
-        data.token = "";
-    }
     if(config.method === 'post'){
+        if(!data['token']){
+            data.token = userinfo['token'] ? userinfo['token'] : "";
+        }
         if(!data['account']){
             data['account'] = userinfo['account'] ? userinfo['account'] : "";
         }
