@@ -4,7 +4,6 @@ import axios from 'axios';
 // import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import EditForm from './add_bank';
-const ButtonGroup = Button.Group;
 
 class BankTable extends Component {
     constructor(props){
@@ -94,7 +93,7 @@ class BankTable extends Component {
             },
         ];
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>            
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>            
             <div className="overview">
                 <div style={{overflow:"hidden"}}>
                     <Button onClick={this.handleEdit.bind(this)} style={{float:"right"}} type="primary"><Icon type="plus" />添加银行卡</Button>

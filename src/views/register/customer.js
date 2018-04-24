@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Steps, Button, Divider, Icon, Alert, Spin, message } from 'antd';
+import { Steps, Divider, Icon, Alert, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import Step1Form from './step1';
@@ -14,7 +14,7 @@ class CustomerForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            current: 2,
+            current: 0,
             formdata: {}
         }
     };
@@ -28,7 +28,7 @@ class CustomerForm extends Component {
         if(current === 3){//代表已经完成注册
             // console.log("提交注册信息");
             const data = {...formdata,...params}
-            if(data.commission_model == 'STP'){
+            if(data.commission_model === 'STP'){
                 if(Number(data.extra_fee) === 1){//有手续费
                     data.commission_model = data.commission_model + (Number(data.extra_amount)/10);
                 }

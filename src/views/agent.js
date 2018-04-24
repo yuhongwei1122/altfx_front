@@ -99,7 +99,7 @@ class AgentIndex extends Component {
         }
         console.log(chartData);
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                    
             <div className="overview">
                 {!this.state.employee ? <div style={{marginTop:10}}>
                     <Row gutter={24} style={{marginBottom:20}}>

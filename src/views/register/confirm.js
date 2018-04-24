@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Steps, Button, Divider, Icon } from 'antd';
+import { Button, Divider, Icon } from 'antd';
 import './customer.css';
-
-const Step = Steps.Step;
 
 class ConfirmForm extends Component {
     constructor(props){
@@ -15,22 +13,22 @@ class ConfirmForm extends Component {
     getResultText = () => {
         switch(Number(this.state.status)){
             case 0:
-                return <div>我们会在1-2个工作日内审核您的注册信息，审核结果会发送至您的邮箱中，请注意查收！</div>
+                return (<div>我们会在1-2个工作日内审核您的注册信息，审核结果会发送至您的邮箱中，请注意查收！</div>)
                 break;
             case 1:
-                return <div>您的安全验证链接已失效，请联系我们的客服人员重新给您发送安全验证邮件，谢谢您的理解与配合！</div>
+                return (<div>您的安全验证链接已失效，请联系我们的客服人员重新给您发送安全验证邮件，谢谢您的理解与配合！</div>)
                 break;
             case 2:
-                return <div>您的申请我们已经收到，我们会在1-2个工作日内审核您的注册信息，审核结果会发送至您的邮箱中，请注意查收！</div>
+                return (<div>您的申请我们已经收到，我们会在1-2个工作日内审核您的注册信息，审核结果会发送至您的邮箱中，请注意查收！</div>)
                 break;
             case 3:
-                return <div>用户不存在，请重新申请注册！</div>
+                return (<div>用户不存在，请重新申请注册！</div>)
                 break;
             case 4:
-                return <div>数据库存储失败，请联系客服</div>
+                return (<div>数据库存储失败，请联系客服</div>)
                 break;
             case 5:
-                return <div>激活出错，请联系客服，谢谢！</div>
+                return (<div>激活出错，请联系客服，谢谢！</div>)
                 break;
             default:
                 break;
@@ -39,14 +37,13 @@ class ConfirmForm extends Component {
     toLogin = () => {
         this.props.history.push("/login");
     };
-    componentDidMount(){
+    componentWillMount(){
         this.setState({
             status: this.props.match.params.status || "0",
         });
     };
     
     render() {
-        const { current } = this.state;
         return (
             <div className="register_box">
                 <div style={{margin:"10px"}}><Link to={{pathname:'login'}}><Icon type="left-circle-o" />返回登录</Link></div>

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon, Select, DatePicker } from 'antd';
-import { timingSafeEqual } from 'crypto';
+import { Form, Row, Col, Button, Icon, DatePicker } from 'antd';
 import moment from 'moment';
 const RangePicker = DatePicker.RangePicker;
 const FormItem = Form.Item;
-const Option = Select.Option;
 
 class SearchForm extends Component{
     constructor(props){
@@ -36,7 +34,6 @@ class SearchForm extends Component{
     
     render(){
         const { getFieldDecorator } = this.props.form;
-        const state = this.state;
         const formItemLayout = {
             labelCol: {
               xs: { span: 24 },

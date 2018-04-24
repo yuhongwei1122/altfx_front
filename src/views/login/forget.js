@@ -3,7 +3,6 @@ import { Button, Input, Form, Spin, Alert } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 const FormItem = Form.Item;
-const { TextArea } = Input;
 
 class ForgetForm extends Component {
     constructor(props) {
@@ -40,7 +39,6 @@ class ForgetForm extends Component {
         });
     };
     handleVaild = (rule, value, callback) => {
-        const form = this.props.form;
         if(value){
             axios.post('/api/register/account-check',qs.stringify({
                 account: value

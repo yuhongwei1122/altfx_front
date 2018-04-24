@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Table, Button, Modal, Spin, message } from 'antd';
+import { Table, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './flow_search';
-const ButtonGroup = Button.Group;
 
 class FlowTable extends Component {
     constructor(props){
@@ -147,7 +146,7 @@ class FlowTable extends Component {
             }
         ];
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                        
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                        
             <div className="overview">
                 <div>
                     <SearchForm handleSearch={this.handleSearch}/>

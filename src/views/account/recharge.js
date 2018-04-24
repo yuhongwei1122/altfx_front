@@ -213,7 +213,7 @@ class RechargeForm extends Component{
             },
         };
         return(
-            <Spin tip="Loading..." spinning={this.state.loading}>                                    
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.loading}>                                    
             <div style={{marginTop:30}}>
                 <Form
                     className="ant-advanced-search-form"

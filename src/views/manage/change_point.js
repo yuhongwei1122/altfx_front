@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Input, Form, Spin, Divider, Icon, Select, Radio, Modal, Notification, message} from 'antd';
+import { Button, Input, Form, Spin, Select, Notification, message} from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 const FormItem = Form.Item;
-const { TextArea } = Input;
 const Option = Select.Option;
-const RadioGroup = Radio.Group;
 
 class ChangePointForm extends Component {
     constructor(props) {
@@ -43,25 +41,9 @@ class ChangePointForm extends Component {
             }
         });
     };
-    handleExtraFee = (e) => {
-        const { form } = this.props;
-        const keys = form.getFieldValue('keys');
-        if(Number(e.target.value) === 1){
-            const nextKeys = keys.concat("extra_amount");
-            // can use data-binding to set
-            // important! notify form to detect changes
-            form.setFieldsValue({
-                keys: nextKeys,
-            });
-        }else{
-            // can use data-binding to set
-            form.setFieldsValue({
-                keys: keys.filter(key => key !== 'extra_amount'),
-            });
-        } 
-    };
+    
     render() {
-        const { getFieldDecorator, getFieldValue} = this.props.form;
+        const { getFieldDecorator } = this.props.form;
 
         const formItemLayout = {
           labelCol: {
@@ -85,34 +67,6 @@ class ChangePointForm extends Component {
               },
             },
         };
-        getFieldDecorator('keys', { initialValue: [] });
-        const keys = getFieldValue('keys');
-        const formItems = keys.map((k) => {
-            if(k === 'extra_amount'){
-                return (
-                    <FormItem
-                      {...formItemLayout}
-                      label="手续费"
-                      key="extra_amount"
-                    >
-                        {getFieldDecorator('extra_amount',{
-                            initialValue: "10",
-                            rules: [{
-                                required: true, message: '请选择手续费!',
-                            }],
-                        })(
-                            <Select>   
-                                <Option value="10">$10</Option>
-                                <Option value="20">$20</Option>
-                                <Option value="30">$30</Option>
-                                <Option value="40">$40</Option>
-                                <Option value="50">$50</Option>
-                            </Select>
-                      )}
-                    </FormItem>
-                )
-            }
-        });
         return (
             <Spin spinning={this.state.loading}>
                 <Form onSubmit={this.handleSubmit}>
@@ -133,18 +87,18 @@ class ChangePointForm extends Component {
                         })(
                             <Select>
                                 <Option value="">请选择新点差类型</Option>
-                                <Option value="ECN1" disabled={this.props.editData.legacy_commission_model == 'ECN1' ? true : false}>ECN1</Option>
-                                <Option value="ECN2" disabled={this.props.editData.legacy_commission_model == 'ECN2' ? true : false}>ECN2</Option>
-                                <Option value="ECN3" disabled={this.props.editData.legacy_commission_model == 'ECN3' ? true : false}>ECN3</Option>
-                                <Option value="ECN4" disabled={this.props.editData.legacy_commission_model == 'ECN4' ? true : false}>ECN4</Option>
-                                <Option value="ECN5" disabled={this.props.editData.legacy_commission_model == 'ECN5' ? true : false}>ECN5</Option>
-                                <Option value="ECN6" disabled={this.props.editData.legacy_commission_model == 'ECN6' ? true : false}>ECN6</Option>
-                                <Option value="STP" disabled={this.props.editData.legacy_commission_model == 'STP' ? true : false}>STP</Option>
-                                <Option value="STP1" disabled={this.props.editData.legacy_commission_model == 'STP1' ? true : false}>STP1</Option>
-                                <Option value="STP2" disabled={this.props.editData.legacy_commission_model == 'STP2' ? true : false}>STP2</Option>
-                                <Option value="STP3" disabled={this.props.editData.legacy_commission_model == 'STP3' ? true : false}>STP3</Option>
-                                <Option value="STP4" disabled={this.props.editData.legacy_commission_model == 'STP4' ? true : false}>STP4</Option>
-                                <Option value="STP5" disabled={this.props.editData.legacy_commission_model == 'STP5' ? true : false}>STP5</Option>
+                                <Option value="ECN1" disabled={this.props.editData.legacy_commission_model === 'ECN1' ? true : false}>ECN1</Option>
+                                <Option value="ECN2" disabled={this.props.editData.legacy_commission_model === 'ECN2' ? true : false}>ECN2</Option>
+                                <Option value="ECN3" disabled={this.props.editData.legacy_commission_model === 'ECN3' ? true : false}>ECN3</Option>
+                                <Option value="ECN4" disabled={this.props.editData.legacy_commission_model === 'ECN4' ? true : false}>ECN4</Option>
+                                <Option value="ECN5" disabled={this.props.editData.legacy_commission_model === 'ECN5' ? true : false}>ECN5</Option>
+                                <Option value="ECN6" disabled={this.props.editData.legacy_commission_model === 'ECN6' ? true : false}>ECN6</Option>
+                                <Option value="STP" disabled={this.props.editData.legacy_commission_model === 'STP' ? true : false}>STP</Option>
+                                <Option value="STP1" disabled={this.props.editData.legacy_commission_model === 'STP1' ? true : false}>STP1</Option>
+                                <Option value="STP2" disabled={this.props.editData.legacy_commission_model === 'STP2' ? true : false}>STP2</Option>
+                                <Option value="STP3" disabled={this.props.editData.legacy_commission_model === 'STP3' ? true : false}>STP3</Option>
+                                <Option value="STP4" disabled={this.props.editData.legacy_commission_model === 'STP4' ? true : false}>STP4</Option>
+                                <Option value="STP5" disabled={this.props.editData.legacy_commission_model === 'STP5' ? true : false}>STP5</Option>
                             </Select>
                         )}
                     </FormItem>

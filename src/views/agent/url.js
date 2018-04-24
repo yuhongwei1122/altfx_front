@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Input, Button, Icon, Select, Tag, message} from 'antd';
-import { timingSafeEqual } from 'crypto';
-import axios from 'axios';
+import { Row, Col, Input, Button, Icon, Select, message} from 'antd';
 import config from "../../config";
 import copy from 'copy-to-clipboard';
 const Option = Select.Option;

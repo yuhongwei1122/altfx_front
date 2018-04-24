@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, Row, Col, Table, message, Spin } from 'antd';
+import { Card, message, Spin } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import {Chart, Axis, Geom, Tooltip, Coord, Legend, Label} from "bizcharts";//引入图表插件
@@ -109,7 +109,7 @@ class AgentIndex extends Component {
             }
         };
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                    
             <div className="overview">
                 <Card title="昨日返佣来源分布" style={{marginTop:20,marginBottom:30}}>
                     <Chart height={300} data={dv} scale={cols} padding={[ 20, 20, 20, 20 ]} forceFit>

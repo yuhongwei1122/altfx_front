@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Button, Modal, Tag, notification, Select, Spin, message } from 'antd';
+import { Table, Button, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './search';
 const ButtonGroup = Button.Group;
-const Option = Select.Option;
 
 class SameAccountTable extends Component {
     constructor(props){
@@ -119,7 +118,7 @@ class SameAccountTable extends Component {
             }
         ];
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                    
             <div className="overview" style={{marginTop:"30px"}}>
                 <div style={{overflow:"hidden"}}>
                    <SearchForm handleSearch={this.handleSearch}/>

@@ -158,7 +158,7 @@ export default class UserBase extends Component{
         ];
         const { detail } = this.state;
         return(
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                        
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                        
             <div style={{marginBottom:20,marginTop:20}}>
                 <Tabs tabPosition="top">
                     <TabPane tab="基本信息" key="1">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Tabs, Row, Col, List, Card, Divider, Icon, Button, Spin, message } from 'antd';
+import { Table, Tabs, Row, Col, Card, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 const TabPane = Tabs.TabPane;
@@ -89,28 +89,6 @@ export default class AgentRuleTable extends Component{
         this.toggleLoading();
     };
     render(){
-        const formItemLayout = {
-            labelCol: {
-              xs: { span: 24 },
-              sm: { span: 6 },
-            },
-            wrapperCol: {
-              xs: { span: 24 },
-              sm: { span: 16 },
-            },
-        };
-        const tailFormItemLayout = {
-              wrapperCol: {
-                xs: {
-                  span: 24,
-                  offset: 0,
-                },
-                sm: {
-                  span: 16,
-                  offset: 8,
-                },
-              },
-        };
         const columns = [
             {
                 title: '点差类型',
@@ -214,7 +192,7 @@ export default class AgentRuleTable extends Component{
             }
         ];
         return(
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                    
             <div style={{marginBottom:20,marginTop:10}}>
                 <Tabs tabPosition="top">
                     <TabPane tab="下级返佣规则" key="1">

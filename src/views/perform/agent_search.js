@@ -28,7 +28,6 @@ class AgentSearchForm extends Component{
     
     render(){
         const { getFieldDecorator } = this.props.form;
-        const state = this.state;
         const formItemLayout = {
             labelCol: {
               xs: { span: 24 },

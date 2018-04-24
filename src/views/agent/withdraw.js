@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, Tag, InputNumber, message, Notification, Modal, Spin } from 'antd';
-import { timingSafeEqual } from 'crypto';
-import moment from 'moment';
+import { Form, Row, Col, Input, Button, Select, Tag, InputNumber, message, Notification, Modal, Spin } from 'antd';
 import qs from 'qs';
 import axios from 'axios';
-import sha512 from 'js-sha512';
-import config from "../../config";
 import FillBank from '../account/fill_bank';
-const RangePicker = DatePicker.RangePicker;
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -37,7 +32,6 @@ class WithdrawForm extends Component{
         });
     };
     handleMinVaild = (rule, value, callback) => {
-        const form = this.props.form;
         if(value && (Number(value) < 50 || Number(value) > 5000)){
             callback('最低入50美金，最多5000美金！');
         }else{
@@ -219,7 +213,6 @@ class WithdrawForm extends Component{
     };
     render(){
         const { getFieldDecorator } = this.props.form;
-        const state = this.state;
         const formItemLayout = {
             labelCol: {
               xs: { span: 24 },
@@ -243,7 +236,7 @@ class WithdrawForm extends Component{
             },
         };
         return(
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                                
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                                
             <div style={{marginTop:30}}>
                 <Form
                     className="ant-advanced-search-form"

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Button, Modal, Tag, Notification, Select, message, Spin } from 'antd';
+import { Table, Button, Modal, Tag, Notification, message, Spin } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './search';
 const ButtonGroup = Button.Group;
-const Option = Select.Option;
+// const Option = Select.Option;
 
 class MemberTable extends Component {
     constructor(props){
@@ -206,7 +206,7 @@ class MemberTable extends Component {
             return <Tag color="blue" key={item} onClick={this.handleSearch.bind(this,{"unique_code":item})}>{item}&gt;</Tag>;
         });
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                                
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                                
             <div className="overview" style={{marginTop:"15px"}}>
                 <div style={{overflow:"hidden"}}>
                     <SearchForm handleSearch={this.handleSearch}/>

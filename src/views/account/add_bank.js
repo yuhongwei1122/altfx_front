@@ -3,7 +3,6 @@ import { Button, Input, Form, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 const FormItem = Form.Item;
-const { TextArea } = Input;
 
 class AddBankForm extends Component {
     constructor(props) {

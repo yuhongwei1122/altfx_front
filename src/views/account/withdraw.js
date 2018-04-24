@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, Tag, InputNumber, message, Notification, Modal } from 'antd';
-import { timingSafeEqual } from 'crypto';
-import moment from 'moment';
+import { Form, Row, Col, Input, Button, Select, Tag, InputNumber, message, Notification, Modal } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
-import sha512 from 'js-sha512';
-import config from "../../config";
 import FillBank from './fill_bank';
-const RangePicker = DatePicker.RangePicker;
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -44,7 +39,6 @@ class WithdrawForm extends Component{
         });
     };
     handleMinVaild = (rule, value, callback) => {
-        const form = this.props.form;
         if(value && (Number(value) < 50 || Number(value) > 5000)){
             callback('最低入50美金，最多5000美金！');
         }else{
@@ -215,7 +209,6 @@ class WithdrawForm extends Component{
     
     render(){
         const { getFieldDecorator } = this.props.form;
-        const state = this.state;
         const formItemLayout = {
             labelCol: {
               xs: { span: 24 },

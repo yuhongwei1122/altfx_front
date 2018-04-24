@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Loadable from 'react-loadable';
+import {Spin} from 'antd';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 import axios from 'axios';
 import './index.css';
-import App from './components/content/content';
-import Login from './views/login/login';
-import Register from './views/register/customer';
-import Confirm from './views/register/confirm';
 import registerServiceWorker from './registerServiceWorker';
 import moment from 'moment';
 import md5 from 'md5';
@@ -14,7 +12,7 @@ import md5 from 'md5';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.interceptors.response.use(function (response) {
     // Do something with response data
-    // console.log(response);
+    console.log(response);
     if(response.data.error && Number(response.data.error.returnCode) === 99){
         console.log("登陆失效");
         // window.location.href = "/";
@@ -39,7 +37,7 @@ axios.interceptors.request.use(function (config) {
     }
     console.log(config);
     let data = {};
-    if(config.data!=undefined){
+    if(config.data !== undefined){
         let strs = config.data.split("&");
         for (var i = 0; i < strs.length; i++) {
             data[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
@@ -80,13 +78,47 @@ axios.interceptors.request.use(function (config) {
     console.log("报错");
     return Promise.reject(error);
 });
+const MyLoadingComponent = ({ isLoading, error }) => {
+    // Handle the loading state
+    if (isLoading) {
+        return (
+            <div className="loading-box">
+                <Spin style={{margin: "0 auto"}} tip="亲，正在努力加载中，请稍后..."></Spin>;
+            </div>
+        );
+    }
+    // Handle the error state
+    else if (error) {
+        return <div>Sorry, there was a problem loading the page.</div>;
+    }
+    else {
+        return null;
+    }
+};
+
+const AsyncLogin = Loadable({
+    loader: () => import('./views/login/login'),
+    loading: MyLoadingComponent
+});
+const AsyncRegister = Loadable({
+    loader: () => import('./views/register/customer'),
+    loading: MyLoadingComponent
+});
+const AsyncApp = Loadable({
+    loader: () => import('./components/content/content'),
+    loading: MyLoadingComponent
+});
+const AsyncConfirm = Loadable({
+    loader: () => import('./views/register/confirm'),
+    loading: MyLoadingComponent
+});
 ReactDOM.render(
     <HashRouter>
         <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/register/cus" component={Register} />
-            <Route path="/confirm/:status" component={Confirm} />
-            <Route path="/" name="content" component={App}></Route>
+            <Route path="/login" component={AsyncLogin} />
+            <Route path="/register/cus" component={AsyncRegister} />
+            <Route path="/confirm/:status" component={AsyncConfirm} />
+            <Route path="/" name="content" component={AsyncApp}></Route>
         </Switch>
     </HashRouter>, 
     document.getElementById('root')

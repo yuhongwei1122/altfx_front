@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Table, Button, Modal, Tag, Card, Row, Col, Spin, message } from 'antd';
+import { Table, Button, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
-import DateFormate from '../../components/tool/DateFormatPan';
+// import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './agent_search';
-const ButtonGroup = Button.Group;
 
 class AgentPerformTable extends Component {
     constructor(props){
@@ -61,7 +59,7 @@ class AgentPerformTable extends Component {
     };
     componentWillMount(){
         this.toggleLoading();
-        this.fetchData({page:0});
+        this.fetchTable({page:0});
     };
     componentDidMount(){
         // console.log("did mount 中当前的页："+this.state.pagination.current);
@@ -106,7 +104,7 @@ class AgentPerformTable extends Component {
             }
         ];
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                                
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                                
             <div className="report">
                 <div style={{marginTop:10}}>
                     <SearchForm handleSearch={this.handleSearch}/>

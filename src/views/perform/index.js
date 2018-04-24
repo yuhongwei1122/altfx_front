@@ -60,7 +60,7 @@ class PerformIndex extends Component {
     };
     render() {
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                    
             <div className="overview">
                 <div style={{marginTop:20}}>
                     <SearchForm handleSearch={this.handleSearch}/>

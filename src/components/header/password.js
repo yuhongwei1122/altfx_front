@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, Input, Form, Spin } from 'antd';
 import axios from 'axios';
 const FormItem = Form.Item;
-const { TextArea } = Input;
 
 class UpdatePasswordForm extends Component {
     constructor(props) {

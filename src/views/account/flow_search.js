@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Input, Button, Icon, Select, DatePicker, Spin, message} from 'antd';
-import { timingSafeEqual } from 'crypto';
+import { Form, Row, Col, Button, Icon, Select, DatePicker, Spin, message} from 'antd';
 import moment from 'moment';
 import axios from 'axios';
 import qs from 'qs';
@@ -77,7 +76,6 @@ class SearchForm extends Component{
     
     render(){
         const { getFieldDecorator } = this.props.form;
-        const state = this.state;
         const formItemLayout = {
             labelCol: {
               xs: { span: 24 },
@@ -89,7 +87,7 @@ class SearchForm extends Component{
             },
           };
         return(
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                        
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                        
             <Form
                 className="ant-advanced-search-form"
                 onSubmit={this.handleSearch}

@@ -145,7 +145,7 @@ class TradeAccountTable extends Component {
             }
         ];
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                                
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                                
             <div className="overview" style={{marginTop:"30px"}}>
                 <Row gutter={24}>
                     <Col span={8}>

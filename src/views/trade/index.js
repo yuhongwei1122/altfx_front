@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Table, Button, Modal, message, Spin } from 'antd';
+import { Table, Button, message, Spin } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import DateFormate from '../../components/tool/DateFormatPan';
 import SearchForm from './search';
-const ButtonGroup = Button.Group;
 
 class TradeTable extends Component {
     constructor(props){
@@ -119,7 +118,7 @@ class TradeTable extends Component {
             },
         ];
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                    
             <div className="overview">
                 <div>
                     <SearchForm handleSearch={this.handleSearch}/>

@@ -62,7 +62,7 @@ class editForm extends Component {
         if(value){
             this.setState({
                 mt4out: list.filter(item => {
-                    if(item.mt4_login != value){
+                    if(Number(item.mt4_login) !== Number(value)){
                         return true;
                     }else{
                         return false;

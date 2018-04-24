@@ -132,7 +132,7 @@ class BonusTable extends Component {
             }
         ];
         return (
-            <Spin tip="Loading..." spinning={this.state.globalLoading}>                                    
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                    
             <div className="report">
                 <div style={{marginTop:10}}>
                     <SearchForm handleSearch={this.handleSearch}/>

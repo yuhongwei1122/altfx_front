@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Layout, Menu, Dropdown, Icon, Avatar, Notification, Modal } from 'antd';
-import {Link} from 'react-router-dom';
 import "./header.css";
 import JdbSider from '../sider/sider';
 import menuData from '../sider/_nav';
