@@ -40,6 +40,7 @@ class SameAccountTable extends Component {
         }
         axios.post('/api/member/customer-list',qs.stringify({
             login_unique_code: info.unique_code,
+            unique_code: info.unique_code,
             size: this.state.pagination.pageSize,  //每页数据条数
             ...params
         })).then((res) => {

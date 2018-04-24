@@ -10,7 +10,7 @@ import UpdatePasswordForm from './password';
 const { Header } = Layout;
 
 class JdbHeader extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             poName: "",
@@ -36,8 +36,9 @@ class JdbHeader extends Component {
         }else if(e.key === 'logout'){
             this.onMenuClick();
         }else{
-            this.props.history.push("/baseinfo");
             console.log("other");
+            window.location.href = "/#/baseinfo"
+            // this.props.history.push("/baseinfo"); 
         }
     };
     forgetClick = () => {

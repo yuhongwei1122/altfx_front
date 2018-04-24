@@ -30,7 +30,7 @@ class FlowTable extends Component {
     fetchData = (params = {}) => {
         // console.log("fetchData中page=："+this.state.pagination.current);
         console.log(params);
-        axios.post('/api/trade/record',qs.stringify({
+        axios.post('/api/cash/record',qs.stringify({
             user_id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id,
 			size: this.state.pagination.pageSize,  //每页数据条数
             ...params
@@ -78,48 +78,73 @@ class FlowTable extends Component {
     render() {
         const columns = [
             {
-                title: '订单',
-                dataIndex: 'trade_order',
-                key: 'trade_order'
+                title: '流水号',
+                dataIndex: 'cash_order',
+                key: 'cash_order'
             },
             {
-                title: '交易时间',
-                dataIndex: 'tradeTime',
-                key: 'tradeTime',
+                title: '类型',
+                dataIndex: 'cash_type',
+                key: 'cash_type',
+                render: (text) => {
+                    if(Number(text) === 1){
+                        return "入金";
+                    }else{
+                        return "出金";
+                    }
+                }
+            },
+            {
+                title: 'MT4账户',
+                dataIndex: 'mt4_login',
+                key: 'mt4_login',
+            }, 
+            {
+                title: '时间',
+                dataIndex: 'create_time',
+                key: 'create_time',
                 render:(text) => {
                     return <DateFormate date={text} format="yyyy-MM-dd hh:mm:ss"/>;
                 }
             },
             {
-                title: '货币对',
-                dataIndex: 'symbol',
-                key: 'symbol',
+                title: '状态',
+                dataIndex: 'status',
+                key: 'status',
+                render: (text,row) => {
+                    if(Number(text) === 1){
+                        if(Number(row.cash_type) === 2){
+                            return "待审核";
+                        }else{
+                            return "待支付";
+                        }
+                    }else if(Number(text) === 2){
+                        return "已支付，待审核";
+                    }else if(Number(text) === 3){
+                        return "财务已确认";
+                    }else if(Number(text) === 4){
+                        return "客服已确认";
+                    }else if(Number(text) === 5){
+                        return "已完成";
+                    }else if(Number(text) === 6){
+                        return "审核拒绝";
+                    }else if(Number(text) === 5){
+                        return "支付失败";
+                    }else{
+                        return "已取消";
+                    }
+                }
             }, 
             {
-                title: '成交量',
-                dataIndex: 'volume',
-                key: 'volume',
+                title: '金额(USD)',
+                dataIndex: 'apply_amount',
+                key: 'apply_amount',
             }, 
             {
-                title: '开仓价',
-                dataIndex: 'open_price',
-                key: 'open_price',
-            }, 
-            {
-                title: '平仓价',
-                dataIndex: 'close_price',
-                key: 'close_price',
-            }, 
-            {
-                title: '止损/止赢',
-                dataIndex: 'sl',
-                key: 'sl'
-            },
-            {
-                title: '盈亏',
-                dataIndex: 'profit', 
-                key: 'profit'
-            },
+                title: '实际金额',
+                dataIndex: 'real_amount',
+                key: 'real_amount',
+            }
         ];
         return (
             <Spin tip="Loading..." spinning={this.state.globalLoading}>                        
@@ -129,7 +154,7 @@ class FlowTable extends Component {
                 </div>
                 <div style={{marginTop:10}}>
                     <Table 
-                        rowKey={record => record.trade_order}
+                        rowKey={record => record.cash_order}
                         columns={columns} 
                         dataSource={this.state.tableData} 
                         pagination={this.state.pagination} 

@@ -13,7 +13,8 @@ class SearchForm extends Component{
         super(props);
         this.state = {
             globalLoading: false,
-            mt4List: []
+            mt4List: [],
+            role: ""
         };
     };
     toggleLoading = () => {
@@ -27,8 +28,8 @@ class SearchForm extends Component{
         //   console.log('Received values of form: ', values);
           const day = values.search_date;
             if(day){
-                values.close_time_start = day[0].unix();
-                values.close_time_end = day[1].unix();
+                values.time_start = day[0].unix();
+                values.time_end = day[1].unix();
                 values.search_date = null;
             }
           this.props.handleSearch(values);
@@ -62,6 +63,13 @@ class SearchForm extends Component{
     componentWillMount(){
         this.toggleLoading();
         this.handleGetMT4List();
+        let userinfo = {};
+        if(sessionStorage.getItem("altfx_user")){
+            userinfo = JSON.parse(sessionStorage.getItem("altfx_user"));
+        }
+        this.setState({
+            role : userinfo.role || ""
+        });
     };
     componentDidMount = () => {
         this.toggleLoading();
@@ -87,30 +95,32 @@ class SearchForm extends Component{
                 onSubmit={this.handleSearch}
             >
                 <Row gutter={24}>
-                    <Col span={8} key="mt4_login">
-                        <FormItem 
-                            {...formItemLayout}
-                            label="MT4账户"
-                        >
-                            {getFieldDecorator("mt4_login", {
-                                initialValue: "",
-                                rules: [
-                                    {required: false, message: '请选择帐户!',
-                                }]
-                            })(
-                                <Select>
-                                    <Option value="">全部</Option>
-                                    {this.handleMt4Option()}
-                                </Select>
-                            )}
-                        </FormItem>
-                    </Col>
+                    {this.state.role.indexOf("4") > -1 ?
+                        <Col span={8} key="mt4_login">
+                            <FormItem 
+                                {...formItemLayout}
+                                label="MT4账户"
+                            >
+                                {getFieldDecorator("mt4_login", {
+                                    initialValue: "",
+                                    rules: [
+                                        {required: false, message: '请选择帐户!',
+                                    }]
+                                })(
+                                    <Select>
+                                        <Option value="">全部</Option>
+                                        {this.handleMt4Option()}
+                                    </Select>
+                                )}
+                            </FormItem>
+                        </Col> : 
+                    null }
                     <Col span={8} key="symbol">
                         <FormItem 
                             {...formItemLayout}
                             label="类型"
                         >
-                            {getFieldDecorator("symbol", {
+                            {getFieldDecorator("cash_type", {
                                 initialValue: "",
                                 rules: [
                                     {required: false, message: '请选择类型!',
@@ -142,9 +152,9 @@ class SearchForm extends Component{
                                     <Option value="3">财务确认</Option>
                                     <Option value="4">客服确认</Option>
                                     <Option value="5">已完成</Option>
-                                    <Option value="6">拒绝</Option>
+                                    <Option value="6">审核拒绝</Option>
                                     <Option value="7">支付失败</Option>
-                                    <Option value="8">取消</Option>
+                                    <Option value="8">已取消</Option>
                                 </Select>
                             )}
                         </FormItem>

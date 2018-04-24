@@ -36,19 +36,6 @@ class WithdrawForm extends Component{
             globalLoading: !this.state.globalLoading
         });
     };
-    handleGetMT4List = () => {
-        axios.post('/api/user/getmt4').then((res) => {
-            this.setState({
-                mt4List : res.data
-            });
-        });
-    };
-    handleMt4Option = () =>{
-        const mt4List = this.state.mt4List;
-        return mt4List.map((item)=>{
-            return <Option key={item.id} value={item.mt4_login}>{item.mt4_name}</Option>
-        });
-    };
     handleMinVaild = (rule, value, callback) => {
         const form = this.props.form;
         if(value && (Number(value) < 50 || Number(value) > 5000)){
@@ -57,11 +44,10 @@ class WithdrawForm extends Component{
             callback();
         }
     };
-    getBalance = (value) => {
+    getBalance = () => {
         const form = this.props.form;
-        axios.post('/api/user/user-account',qs.stringify({
-            id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id,
-            account: value
+        axios.post('/api/user/agent-account',qs.stringify({
+            user_id: JSON.parse(sessionStorage.getItem("altfx_user")).user_id,
         })).then((res) => {
             form.setFieldsValue({
                 "balance": res.data.balance
@@ -222,7 +208,7 @@ class WithdrawForm extends Component{
     componentWillMount(){
         this.toggleLoading();
         this.getBankList();
-        this.handleGetMT4List();
+        this.getBalance();
         this.getOrder();
         this.getRate();
         this.getUserDetail();
@@ -263,26 +249,6 @@ class WithdrawForm extends Component{
                     className="ant-advanced-search-form"
                     onSubmit={this.handleSubmit}
                 >
-                    <Row gutter={24}>
-                        <Col span={24} key="mt4_login">
-                            <FormItem 
-                                {...formItemLayout}
-                                label="交易账户"
-                            >
-                                {getFieldDecorator("mt4_login", {
-                                    initialValue: "",
-                                    rules: [
-                                        {required: true, message: '请选择帐户!',
-                                    }]
-                                })(
-                                    <Select onChange={this.getBalance}>
-                                        <Option value="">请选择交易帐户</Option>
-                                        {this.handleMt4Option()}
-                                    </Select>
-                                )}
-                            </FormItem>
-                        </Col>
-                    </Row>
                     <Row gutter={24}>
                         <Col span={24} key="balance">
                             <FormItem 

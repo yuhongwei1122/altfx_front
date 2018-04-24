@@ -82,7 +82,7 @@ export default class AgentRuleTable extends Component{
     };
     componentWillMount(){
         this.toggleLoading();
-        this.fetchData({page:0});
+        this.fetchTable({page:1});
     };
     componentDidMount(){
         // console.log("did mount 中当前的页："+this.state.pagination.current);

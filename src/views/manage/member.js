@@ -193,7 +193,7 @@ class MemberTable extends Component {
                 render: (text, row, index) => (
                     <ButtonGroup> 
                         {(row.unique_code.indexOf("8") === 0 || row.unique_code.indexOf("6") === 0) ? 
-                            <Button style={{lineHeight:0}} type="primary" icon="check" onClick={this.handleSearch.bind(this,{"unique_code":row.unique_code})}>查看下级用户</Button> : 
+                            Number(row.subordinate) > 0 ? <Button style={{lineHeight:0}} type="primary" icon="check" onClick={this.handleSearch.bind(this,{"unique_code":row.unique_code})}>查看下级用户</Button> :null : 
                             <Link to={{pathname:'/manage/account/'+row.unique_code+'/'+row.account}}><Button style={{lineHeight:0}} type="primary" icon="check">查看交易账户</Button></Link>
                         }
                         {!this.handleCheckEmoloyee(row.employee) ? <Button style={{lineHeight:0}} onClick={this.handleEmployee.bind(this,row.unique_code)} type="danger" icon="edit">升级员工</Button> : null}

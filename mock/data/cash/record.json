@@ -1,0 +1,79 @@
+{
+    "error":{
+        "returnCode" : 0,
+        "returnUserMessage" : "请输入正确的用户名或密码"
+    },
+    "data" : {
+        "result" :[
+            {
+                "cash_order": "98902432",
+                "mt4_login": "2017",
+                "user_id": "7",
+                "account": "name",
+                "cash_type": "1",
+                "apply_amount": "100",
+                "prepaid_amount": "101",
+                "real_amount": "99",
+                "rate": "6",
+                "card": "",
+                "reason": "",
+                "role": "4",
+                "status": "1",
+                "auditor": "0",
+                "create_time": "100"
+            },
+            {
+                "cash_order": "98902432",
+                "mt4_login": "2017",
+                "user_id": "7",
+                "account": "name",
+                "cash_type": "1",
+                "apply_amount": "100",
+                "prepaid_amount": "101",
+                "real_amount": "99",
+                "rate": "7",
+                "card": "",
+                "reason": "",
+                "role": "4",
+                "status": "2",
+                "auditor": "0",
+                "create_time": "100"
+            },
+            {
+                "cash_order": "98902432",
+                "mt4_login": "2017",
+                "user_id": "7",
+                "account": "name",
+                "cash_type": "1",
+                "apply_amount": "100",
+                "prepaid_amount": "101",
+                "real_amount": "99",
+                "rate": "6",
+                "card": "",
+                "reason": "",
+                "role": "4",
+                "status": "3",
+                "auditor": "0",
+                "create_time": "100"
+            },
+            {
+                "cash_order": "98902432",
+                "mt4_login": "2017",
+                "user_id": "7",
+                "account": "name",
+                "cash_type": "1",
+                "apply_amount": "100",
+                "prepaid_amount": "101",
+                "real_amount": "99",
+                "rate": "6",
+                "card": "",
+                "reason": "",
+                "role": "4",
+                "status": "4",
+                "auditor": "0",
+                "create_time": "100"
+            }
+        ],
+        "result_count" : "13"
+    }
+}

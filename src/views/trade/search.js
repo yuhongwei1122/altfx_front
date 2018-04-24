@@ -95,12 +95,12 @@ class SearchForm extends Component{
                     <Col span={8} key="symbol">
                         <FormItem 
                             {...formItemLayout}
-                            label="货币对"
+                            label="交易品类"
                         >
                             {getFieldDecorator("symbol", {
                                 initialValue: "",
                                 rules: [
-                                    {required: false, message: '请选择货币对!',
+                                    {required: false, message: '请选择!',
                                 }]
                             })(
                                 <Select>

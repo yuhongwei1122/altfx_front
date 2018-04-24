@@ -145,5 +145,9 @@ app.post('/api/commission/organization',(req, res) => {
 app.post('/api/commission/distribute',(req, res) => {
     res.send(require('./data/agent/distribute.json'));
 });
+//账户流水
+app.post('/api/cash/record',(req, res) => {
+    res.send(require('./data/cash/record.json'));
+});
 app.listen(port, () => {console.log(`Lisening mockServer on port ${port}`)});
 

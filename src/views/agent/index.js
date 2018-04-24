@@ -28,7 +28,8 @@ class AgentIndex extends Component {
                 this.setState({
                     organ : res.data
                 });
-                this.drawTree(res.data);
+                let data = res.data.filter(item => item.id)
+                this.drawTree(data);
             }else{
                 message.error(res.error.returnUserMessage);
             }
