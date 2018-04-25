@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input, Form, Spin, message } from 'antd';
+import { Button, Input, Form, Icon, Spin, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 const FormItem = Form.Item;
@@ -8,7 +8,11 @@ class AddBankForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false
+            loading: false,
+            account: "",
+            fileList: [],
+            previewVisible: false,
+            previewImage: ''
         }
     };
     handleSubmit = (e) => {
@@ -29,10 +33,26 @@ class AddBankForm extends Component {
           }
         });
     };
-    componentWillMount(){
+    handleCancel = () => this.setState({ previewVisible: false })
+
+    handlePreview = (file) => {
         this.setState({
-            loading: true
+            previewImage: file.url || file.thumbUrl,
+            previewVisible: true,
         });
+    }
+
+    handleChange = ({ fileList }) => {
+        console.log(fileList);
+        this.setState({ fileList });
+    };
+    componentWillMount(){
+        if(sessionStorage.getItem("altfx_user")){
+            this.setState({
+                loading: true,
+                account: JSON.parse(sessionStorage.getItem("altfx_user")) ? JSON.parse(sessionStorage.getItem("altfx_user")).account : "altfx"
+            });
+        }
     };
     componentDidMount(){
         this.setState({
@@ -65,6 +85,16 @@ class AddBankForm extends Component {
               },
             },
         };
+        const uploadButton = (
+            <div>
+                <Icon type="plus" />
+                <div className="ant-upload-text">点击上传</div>
+            </div>
+        );
+        let env = (process && process.env && process.env.NODE_ENV) || 'production';
+        console.log(env);
+        const uploadImgUrl = config[`${env}_upload_url`] + '/api/image/upload';
+        console.log(uploadImgUrl);
         return (
             <Spin spinning={this.state.loading}>
                 <Form onSubmit={this.handleSubmit}>
@@ -142,6 +172,26 @@ class AddBankForm extends Component {
                             }],
                         })(
                             <Input placeholder="请输入开户行所在市"/>
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="身份证正面"
+                        extra="带有头像的一面"
+                        >
+                        {getFieldDecorator('card_img')(
+                            <Upload
+                                accept="image/jpg,image/jpeg,image/png"
+                                name="image"
+                                action={uploadImgUrl}
+                                listType="picture-card"
+                                fileList={this.state.fileList}
+                                data={{type:1,account:this.state.account}}
+                                onPreview={this.handlePreview}
+                                onChange={this.handleChange}
+                                >
+                                {this.state.fileList.length >= 1 ? null : uploadButton}
+                            </Upload>
                         )}
                     </FormItem>
                     <FormItem {...tailFormItemLayout}>

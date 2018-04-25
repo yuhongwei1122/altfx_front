@@ -109,6 +109,7 @@ class Step3Form extends Component {
                         {getFieldDecorator('identity_front_image')(
                             <Upload
                                 accept="image/jpg,image/jpeg,image/png"
+                                name="image"
                                 action={uploadImgUrl}
                                 listType="picture-card"
                                 fileList={this.state.fileList}
@@ -127,6 +128,7 @@ class Step3Form extends Component {
                         {getFieldDecorator('identity_back_image', )(
                             <Upload
                                 accept="image/jpg,image/jpeg,image/png"
+                                name="image"
                                 action={uploadImgUrl}
                                 listType="picture-card"
                                 fileList={this.state.fileList1}
@@ -146,6 +148,7 @@ class Step3Form extends Component {
                         {getFieldDecorator('risk_tips_image', )(
                             <Upload
                                 accept="image/jpg,image/jpeg,image/png"
+                                name="image"
                                 action={uploadImgUrl}
                                 listType="picture-card"
                                 fileList={this.state.fileList2}
