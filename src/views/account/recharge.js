@@ -14,6 +14,7 @@ class RechargeForm extends Component{
     constructor(props){
         super(props);
         this.state = {
+            globalLoading: false,
             mt4List: [],
             rate: "",
             detail:{},
@@ -21,6 +22,11 @@ class RechargeForm extends Component{
             paydata: {},
             cash_order: ''
         };
+    };
+    toggleLoading = () => {
+        this.setState({
+            globalLoading: !this.state.globalLoading,
+        });
     };
     handleGetMT4List = () => {
         axios.post('/api/user/getmt4').then((res) => {
@@ -180,11 +186,15 @@ class RechargeForm extends Component{
         document.getElementById("signMsg").value = sha512.sha512(sign.join("&"));
         document.payasia.submit();
     };
-    componentDidMount = () => {
+    componentWillMount = () => {
+        this.toggleLoading();
         this.handleGetMT4List();
         this.getOrder();
         this.getRate();
         this.getUserDetail();
+    };
+    componentDidMount = () => {
+        this.toggleLoading();
     };
     
     render(){
@@ -213,7 +223,7 @@ class RechargeForm extends Component{
             },
         };
         return(
-            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.loading}>                                    
+            <Spin tip="亲，正在努力加载中，请稍后..." spinning={this.state.globalLoading}>                                    
             <div style={{marginTop:30}}>
                 <Form
                     className="ant-advanced-search-form"
