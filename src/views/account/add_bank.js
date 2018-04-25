@@ -22,8 +22,12 @@ class AddBankForm extends Component {
           if (!err) {
             this.setState({loading: true});
             values.id = this.props.editData.id;
-            axios.post('/platform/user/perms/update',qs.stringify(values
-            )).then((res) => {
+            const img  = values.card_img['file'];
+            console.log(img.response.data.image_url);
+            values.card_img = img.response.data.image_url;
+            axios.post('/platform/user/perms/update',
+                qs.stringify(values))
+            .then((res) => {
                 this.setState({loading: false});
                 if(Number(res.error.returnCode) === 0){
                     this.props.handleEditOk();

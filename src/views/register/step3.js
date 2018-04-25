@@ -21,17 +21,29 @@ class Step3Form extends Component {
         }
     };
     handleCancel = () => this.setState({ previewVisible: false })
-
     handlePreview = (file) => {
         this.setState({
             previewImage: file.url || file.thumbUrl,
             previewVisible: true,
         });
     }
-
     handleChange = ({ fileList }) => {
         console.log(fileList);
-        this.setState({ fileList });
+        this.setState({ 
+            fileList1: {...fileList} 
+        });
+    };
+    handleChange2 = ({ fileList }) => {
+        console.log(fileList);
+        this.setState({ 
+            fileList1: {...fileList} 
+        });
+    };
+    handleChange3 = ({ fileList }) => {
+        console.log(fileList);
+        this.setState({ 
+            fileList2: {...fileList} 
+        });
     };
 
     handleSubmit = (e) => {
@@ -40,6 +52,15 @@ class Step3Form extends Component {
             console.log(values);
             if (!err) {
                 console.log(values);
+                const img1  = values.identity_front_image['file'];
+                console.log(img1.response.data.image_url);
+                values.identity_front_image = img1.response.data.image_url;
+                const img2  = values.identity_front_image['file'];
+                console.log(img2.response.data.image_url);
+                values.identity_back_image = img2.response.data.image_url;
+                const img3  = values.identity_front_image['file'];
+                console.log(img3.response.data.image_url);
+                values.identity_back_image = img3.response.data.image_url;
                 this.props.handleNext(values);
             }
         });
@@ -139,7 +160,7 @@ class Step3Form extends Component {
                                 fileList={this.state.fileList1}
                                 data={{type:2,account:this.props.editData.username}}
                                 onPreview={this.handlePreview}
-                                onChange={this.handleChange}
+                                onChange={this.handleChange1}
                                 >
                                 {this.state.fileList1.length >= 1 ? null : uploadButton}
                             </Upload>
@@ -159,7 +180,7 @@ class Step3Form extends Component {
                                 fileList={this.state.fileList2}
                                 data={{type:3,account:this.props.editData.username}}
                                 onPreview={this.handlePreview}
-                                onChange={this.handleChange}
+                                onChange={this.handleChange2}
                                 >
                                 {this.state.fileList2.length >= 1 ? null : uploadButton}
                             </Upload>
