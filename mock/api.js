@@ -56,6 +56,9 @@ app.post('/api/trade/record',(req, res) => {
 app.post('/api/cash/card-list',(req, res) => {
     res.send(require('./data/account/bank.json'));
 });
+app.post('/api/cash/add-card',(req, res) => {
+    res.send(require('./data/common/ok.json'));
+});
 //排行榜
 app.post('/api/profit/rank',(req, res) => {
     res.send(require('./data/trade/rank.json'));

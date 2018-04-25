@@ -25,7 +25,7 @@ class AddBankForm extends Component {
             const img  = values.card_img['file'];
             console.log(img.response.data.image_url);
             values.card_img = img.response.data.image_url;
-            axios.post('/platform/user/perms/update',
+            axios.post('/api/cash/add-card',
                 qs.stringify(values))
             .then((res) => {
                 this.setState({loading: false});
@@ -199,7 +199,7 @@ class AddBankForm extends Component {
                                 listType="picture-card"
                                 fileList={this.state.fileList}
                                 data={{type:1,account:this.state.account}}
-                                onPreview={this.handlePreview}
+                                // onPreview={this.handlePreview}
                                 onChange={this.handleChange}
                                 >
                                 {this.state.fileList.length >= 1 ? null : uploadButton}
