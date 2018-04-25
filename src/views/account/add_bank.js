@@ -94,7 +94,12 @@ class AddBankForm extends Component {
         );
         console.log(process);
         console.log("当前环境类型",process.env);
-        let env = (process && process.env && process.env.REACT_APP_BETA && process.env.NODE_ENV) || 'production';
+        let env = "";
+        if(process.env.REACT_APP_BETA){
+            env = process.env.REACT_APP_BETA;
+        }else{
+            env = (process && process.env && process.env.NODE_ENV) || 'production';
+        }
         console.log(env);
         const uploadImgUrl = config[`${env}_upload_url`] + '/api/image/upload';
         console.log(uploadImgUrl);

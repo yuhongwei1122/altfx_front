@@ -132,7 +132,12 @@ class RechargeForm extends Component{
         });
     };
     handleCesPay = (cash_order,amount,ts) => {
-        let env = (process && process.env && process.env.NODE_ENV) || 'production';
+        let env = "";
+        if(process.env.REACT_APP_BETA){
+            env = process.env.REACT_APP_BETA;
+        }else{
+            env = (process && process.env && process.env.NODE_ENV) || 'production';
+        }
         console.log(env);
         const prefix = config[`${env}_upload_url`];
         console.log(prefix);
