@@ -92,6 +92,8 @@ class AddBankForm extends Component {
                 <div className="ant-upload-text">点击上传</div>
             </div>
         );
+        console.log(process);
+        console.log("当前环境类型",process.env);
         let env = (process && process.env && process.env.NODE_ENV) || 'production';
         console.log(env);
         const uploadImgUrl = config[`${env}_upload_url`] + '/api/image/upload';
