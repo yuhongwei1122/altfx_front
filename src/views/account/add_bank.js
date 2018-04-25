@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Input, Form, Icon, Spin, message, Upload } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
+import config from '../../config';
 const FormItem = Form.Item;
 
 class AddBankForm extends Component {
