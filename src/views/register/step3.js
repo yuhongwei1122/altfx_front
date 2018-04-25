@@ -78,7 +78,7 @@ class Step3Form extends Component {
                 <div className="ant-upload-text">点击上传</div>
             </div>
         );
-        let env = (process && process.env && process.env.NODE_ENV) || 'production';
+        let env = (process && process.env && process.env.REACT_APP_BETA && process.env.NODE_ENV) || 'production';
         console.log(env);
         const uploadImgUrl = config[`${env}_upload_url`] + '/api/image/upload';
         console.log(uploadImgUrl);
