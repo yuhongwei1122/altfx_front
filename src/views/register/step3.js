@@ -31,12 +31,12 @@ class Step3Form extends Component {
         console.log("上传时改变的参数",fileList);
         this.setState({ fileList });
     };
-    handleChange2 = ({ fileList }) => {
-        console.log(fileList);
+    handleChange2 = ({ fileList1 }) => {
+        console.log(fileList1);
         this.setState({ fileList1 });
     };
-    handleChange3 = ({ fileList }) => {
-        console.log(fileList);
+    handleChange3 = ({ fileList2 }) => {
+        console.log(fileList2);
         this.setState({ fileList2 });
     };
 
@@ -154,7 +154,7 @@ class Step3Form extends Component {
                                 fileList={this.state.fileList1}
                                 data={{type:2,account:this.props.editData.username}}
                                 onPreview={this.handlePreview}
-                                onChange={this.handleChange1}
+                                onChange={this.handleChange}
                                 >
                                 {this.state.fileList1.length >= 1 ? null : uploadButton}
                             </Upload>
@@ -174,7 +174,7 @@ class Step3Form extends Component {
                                 fileList={this.state.fileList2}
                                 data={{type:3,account:this.props.editData.username}}
                                 onPreview={this.handlePreview}
-                                onChange={this.handleChange2}
+                                onChange={this.handleChange}
                                 >
                                 {this.state.fileList2.length >= 1 ? null : uploadButton}
                             </Upload>
