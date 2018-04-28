@@ -140,7 +140,7 @@ class Step3Form extends Component {
                                 listType="picture-card"
                                 fileList={this.state.fileList}
                                 data={{type:1,account:this.props.editData.username}}
-                                onPreview={this.handlePreview}
+                                // onPreview={this.handlePreview}
                                 onChange={this.handleChange}
                                 >
                                 {this.state.fileList.length >= 1 ? null : uploadButton}
@@ -159,7 +159,7 @@ class Step3Form extends Component {
                                 listType="picture-card"
                                 fileList={this.state.fileList1}
                                 data={{type:2,account:this.props.editData.username}}
-                                onPreview={this.handlePreview}
+                                // onPreview={this.handlePreview}
                                 onChange={this.handleChange1}
                                 >
                                 {this.state.fileList1.length >= 1 ? null : uploadButton}
@@ -171,7 +171,7 @@ class Step3Form extends Component {
                         label="本人手持身份证正面照片"
                         extra=""
                         >
-                        {getFieldDecorator('risk_tips_image', )(
+                        {getFieldDecorator('risk_tips_image')(
                             <Upload
                                 accept="image/jpg,image/jpeg,image/png"
                                 name="image"
@@ -179,7 +179,7 @@ class Step3Form extends Component {
                                 listType="picture-card"
                                 fileList={this.state.fileList2}
                                 data={{type:3,account:this.props.editData.username}}
-                                onPreview={this.handlePreview}
+                                // onPreview={this.handlePreview}
                                 onChange={this.handleChange2}
                                 >
                                 {this.state.fileList2.length >= 1 ? null : uploadButton}
