@@ -28,10 +28,8 @@ class Step3Form extends Component {
         });
     }
     handleChange = ({ fileList }) => {
-        console.log(fileList);
-        this.setState({ 
-            fileList1: {...fileList} 
-        });
+        console.log("上传时改变的参数",fileList);
+        this.setState({ fileList });
     };
     handleChange2 = ({ fileList }) => {
         console.log(fileList);
@@ -147,7 +145,7 @@ class Step3Form extends Component {
                             </Upload>
                         )}
                     </FormItem>
-                    <FormItem
+                    {/* <FormItem
                         {...formItemLayout}
                         label="身份证反面"
                         extra="带有国徽的一面">
@@ -185,7 +183,7 @@ class Step3Form extends Component {
                                 {this.state.fileList2.length >= 1 ? null : uploadButton}
                             </Upload>
                         )}
-                    </FormItem>
+                    </FormItem> */}
                     <FormItem {...tailFormItemLayout}>
                         <Tag color="blue">1.每个文件最大2MB，文件类型为jpg/jpeg/png</Tag>
                         <Tag color="blue">2.请上传您的清晰身份证明文件，必须由政府发布具有照片和您姓名的身份证。</Tag>
