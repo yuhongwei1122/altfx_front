@@ -33,15 +33,11 @@ class Step3Form extends Component {
     };
     handleChange2 = ({ fileList }) => {
         console.log(fileList);
-        this.setState({ 
-            fileList1: {...fileList} 
-        });
+        this.setState({ fileList1 });
     };
     handleChange3 = ({ fileList }) => {
         console.log(fileList);
-        this.setState({ 
-            fileList2: {...fileList} 
-        });
+        this.setState({ fileList2 });
     };
 
     handleSubmit = (e) => {
@@ -138,14 +134,14 @@ class Step3Form extends Component {
                                 listType="picture-card"
                                 fileList={this.state.fileList}
                                 data={{type:1,account:this.props.editData.username}}
-                                // onPreview={this.handlePreview}
+                                onPreview={this.handlePreview}
                                 onChange={this.handleChange}
                                 >
                                 {this.state.fileList.length >= 1 ? null : uploadButton}
                             </Upload>
                         )}
                     </FormItem>
-                    {/* <FormItem
+                    <FormItem
                         {...formItemLayout}
                         label="身份证反面"
                         extra="带有国徽的一面">
@@ -157,7 +153,7 @@ class Step3Form extends Component {
                                 listType="picture-card"
                                 fileList={this.state.fileList1}
                                 data={{type:2,account:this.props.editData.username}}
-                                // onPreview={this.handlePreview}
+                                onPreview={this.handlePreview}
                                 onChange={this.handleChange1}
                                 >
                                 {this.state.fileList1.length >= 1 ? null : uploadButton}
@@ -177,13 +173,13 @@ class Step3Form extends Component {
                                 listType="picture-card"
                                 fileList={this.state.fileList2}
                                 data={{type:3,account:this.props.editData.username}}
-                                // onPreview={this.handlePreview}
+                                onPreview={this.handlePreview}
                                 onChange={this.handleChange2}
                                 >
                                 {this.state.fileList2.length >= 1 ? null : uploadButton}
                             </Upload>
                         )}
-                    </FormItem> */}
+                    </FormItem>
                     <FormItem {...tailFormItemLayout}>
                         <Tag color="blue">1.每个文件最大2MB，文件类型为jpg/jpeg/png</Tag>
                         <Tag color="blue">2.请上传您的清晰身份证明文件，必须由政府发布具有照片和您姓名的身份证。</Tag>
