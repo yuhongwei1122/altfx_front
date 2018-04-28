@@ -21,6 +21,19 @@ class AgentIndex extends Component {
             globalLoading: !this.state.globalLoading
         });
     };
+    //过滤数组对象中id重复的
+    filterData = (data,arrid) => {
+        data.forEach((item)=>{
+            if(arrid.indexOf(item.id) < 0){
+                arrid.push(item.id);
+            }else{
+                item.id = item.unique_code;
+            }
+            if(item.children.length > 0){
+                this.filterData(item.children,arrid);
+            }
+        });
+    };
     fetchData = () => {
         axios.post('/api/commission/organization')
         .then((res) => {
@@ -28,13 +41,23 @@ class AgentIndex extends Component {
                 this.setState({
                     organ : res.data
                 });
-                let data = res.data.filter(item => item.id)
-                this.drawTree(data);
+                // let data = res.data.filter(function(item) { 
+                //     return typeof item == 'number'; 
+                // })
+                let arrid =[res.data.id];
+                if(res.data.children.length > 0){
+                    this.filterData(res.data.children,arrid);
+                }
+                console.log(res.data);
+                // const setdata = new Set(res.data);
+                // let data = Array.from(setdata);
+                this.drawTree(res.data);
             }else{
                 message.error(res.error.returnUserMessage);
             }
         });
     };
+    
     
     getYesterdayTrends = () => {
         axios.post('/api/commission/distribute')
@@ -63,6 +86,10 @@ class AgentIndex extends Component {
               },
             },
         });
+        let temp = G6.Util.filter(data, (item) => {
+            console.log(item);
+        });
+        console.log(temp);
         tree.source(this.state.organ);
         tree.node()
         .color(function (obj) {
