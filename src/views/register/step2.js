@@ -16,7 +16,9 @@ class Step2Form extends Component {
         super(props);
         this.state = {
             confirmDirty: false,
-            loading: false
+            loading: false,
+            birthday: "",
+            emailFlag: false
         }
     };
     handleSubmit = (e) => {
@@ -24,9 +26,23 @@ class Step2Form extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             console.log(values);
             values.phone_prefix = "86";
-            if (!err) {
+            if (!err && !this.state.emailFlag) {
+                values.birthday = this.state.birthday;
                 console.log(values);
                 this.props.handleNext(values);
+            }else{
+                Modal.info({
+                    title: '提示',
+                    content: (
+                      <div>电子邮箱:{values.mail}已经注册过该系统，请更换！</div>
+                    ),
+                    onOk() {
+                        form.setFieldsValue({
+                            "mail": "",
+                        });
+                    },
+                    okText:"关闭"
+                });
             }
         });
     };
@@ -52,34 +68,6 @@ class Step2Form extends Component {
         }
         callback();
     };
-    //用户名校验是否被占用
-    handleCheckAccount = (e) => {
-        const { form } = this.props;
-        const account = e.target.value;
-        if(e.target.value){
-            axios.post('/api/register/account-check',qs.stringify({
-                account: e.target.value
-            }))
-            .then((res) => {
-                if(Number(res.error.returnCode) != 0){
-                    Modal.info({
-                        title: '提示',
-                        content: (
-                          <div>用户名:{account}已经注册过该系统，请更换！</div>
-                        ),
-                        onOk() {
-                            form.setFieldsValue({
-                                "account": account,
-                            });
-                        },
-                        okText:"关闭"
-                    });
-                }
-            })
-        }else{
-            return false;
-        }
-    };
     handleCheckEmail = (e) => {
         const { form } = this.props;
         const email = e.target.value;
@@ -89,6 +77,9 @@ class Step2Form extends Component {
             }))
             .then((res) => {
                 if(Number(res.error.returnCode) != 0){
+                    this.setState({
+                        emailFlag: true
+                    });
                     Modal.info({
                         title: '提示',
                         content: (
@@ -101,6 +92,10 @@ class Step2Form extends Component {
                         },
                         okText:"关闭"
                     });
+                }else{
+                    this.setState({
+                        emailFlag: false
+                    });
                 }
             })
         }else{
@@ -109,6 +104,9 @@ class Step2Form extends Component {
     };
     onChange = (date, dateString) => {
         console.log(dateString);
+        this.setState({
+            birthday: dateString
+        });
     };
     
     render() {
@@ -200,7 +198,7 @@ class Step2Form extends Component {
                         {...formItemLayout}
                         label="出生日期"
                         >
-                        {getFieldDecorator('birthday', {
+                        {getFieldDecorator('birthdays', {
                             rules: [{
                                 required: true, message: '请选择出生日期!'
                             }],

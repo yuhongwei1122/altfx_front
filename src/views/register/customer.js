@@ -28,7 +28,8 @@ class CustomerForm extends Component {
         });
         if(current === 3){//代表已经完成注册
             // console.log("提交注册信息");
-            const data = {...formdata,...params}
+            console.log("前数据",this.state.formdata);
+            const data = {...formdata,...params};
             if(data.commission_model === 'STP'){
                 if(Number(data.extra_fee) === 1){//有手续费
                     data.commission_model = data.commission_model + (Number(data.extra_amount)/10);
@@ -41,7 +42,7 @@ class CustomerForm extends Component {
                 }
             }
             console.log("提交的数据",data);
-            data.birthday = data.birthday.formate("yyyy-MM-dd");
+            // data.birthday = data.birthday.format("yyyy-MM-dd");
             axios.post('/api/register/apply',qs.stringify(data))
             .then((res) => {
                 if(Number(res.error.returnCode) === 0){
