@@ -187,6 +187,37 @@ class Step3Form extends Component {
                         <Tag color="blue">2.请上传您的清晰身份证明文件，必须由政府发布具有照片和您姓名的身份证。</Tag>
                         <Tag color="blue">3.您的相片、个人信息、签署、发行和有效期，以及ID号码必须全部清楚显示您上传的文件中。</Tag>
                     </FormItem>
+                    <Divider className="reg_title" orientation="left"><Icon type="user"></Icon>声明</Divider>
+                    <FormItem style={{marginBottom:0}} {...tailFormItemLayout}>
+                        {getFieldDecorator('agreement1', {
+                            valuePropName: 'checked',
+                            rules:[{
+                                required: true,message:"请阅读并同意"
+                            }]
+                        })(
+                            <Checkbox>我已经阅读、理解并接受客户协议和商业条款，并保证严格遵守当地的法律。</Checkbox>
+                        )}
+                    </FormItem>
+                    <FormItem style={{marginBottom:0}} {...tailFormItemLayout}>
+                        {getFieldDecorator('agreement2', {
+                            valuePropName: 'checked',
+                            rules:[{
+                                required: true,message:"请同意，并确认您知晓外汇风险"
+                            }]
+                        })(
+                            <Checkbox>我知晓参与外汇交易的一切可能风险，并确认提供的所有相关信息准确真实。</Checkbox>
+                        )}
+                    </FormItem>
+                    <FormItem {...tailFormItemLayout}>
+                        {getFieldDecorator('agreement3', {
+                            valuePropName: 'checked',
+                            rules:[{
+                                required: true,message:"请同意接收通知"
+                            }]
+                        })(
+                            <Checkbox>我希望接收到公告、活动和优惠的通知邮件。（请参考隐私政策）</Checkbox>
+                        )}
+                    </FormItem>
                     <FormItem {...tailFormItemLayout}>
                         <Button type="info" onClick={this.handlePrev}>上一步</Button>
                         <Button type="primary" style={{marginLeft:40}} htmlType="submit">下一步</Button>
