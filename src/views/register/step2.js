@@ -22,6 +22,7 @@ class Step2Form extends Component {
         }
     };
     handleSubmit = (e) => {
+        const form = this.props.form;
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             console.log(values);

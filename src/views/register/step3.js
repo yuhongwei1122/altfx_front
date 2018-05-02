@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input, Form, Spin, Tooltip, Divider, Icon, Select, Radio, Modal, Tag, Upload} from 'antd';
+import { Button, Input, Form, Spin, Tooltip, Divider, Icon, Select, Radio, Modal, Tag, Upload, Checkbox} from 'antd';
 import axios from 'axios';
 import config from '../../config';
 const FormItem = Form.Item;
