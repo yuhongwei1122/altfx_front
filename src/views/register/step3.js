@@ -27,17 +27,19 @@ class Step3Form extends Component {
             previewVisible: true,
         });
     }
-    handleChange = ({ fileList }) => {
-        console.log("上传时改变的参数",fileList);
-        this.setState({ fileList });
+    handleChange = ({ file,fileList,event }) => {
+        console.log(file);
+        console.log("上传时改变",fileList);
+        this.setState({ fileList: fileList });
     };
-    handleChange2 = ({ fileList1 }) => {
-        console.log(fileList1);
-        this.setState({ fileList1 });
+    handleChange1 = ({ file,fileList,event }) => {
+        console.log(file);
+        console.log("身份证反面，上传时改变",fileList);
+        this.setState({ fileList1: fileList });
     };
-    handleChange3 = ({ fileList2 }) => {
-        console.log(fileList2);
-        this.setState({ fileList2 });
+    handleChange2 = ({ file,fileList,event }) => {
+        console.log("手持身份照片，上传时改变",fileList);
+        this.setState({ fileList2: fileList });
     };
 
     handleSubmit = (e) => {
@@ -154,7 +156,7 @@ class Step3Form extends Component {
                                 fileList={this.state.fileList1}
                                 data={{type:2,account:this.props.editData.username}}
                                 onPreview={this.handlePreview}
-                                onChange={this.handleChange}
+                                onChange={this.handleChange1}
                                 >
                                 {this.state.fileList1.length >= 1 ? null : uploadButton}
                             </Upload>
@@ -174,7 +176,7 @@ class Step3Form extends Component {
                                 fileList={this.state.fileList2}
                                 data={{type:3,account:this.props.editData.username}}
                                 onPreview={this.handlePreview}
-                                onChange={this.handleChange}
+                                onChange={this.handleChange2}
                                 >
                                 {this.state.fileList2.length >= 1 ? null : uploadButton}
                             </Upload>
