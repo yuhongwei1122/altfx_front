@@ -11,9 +11,9 @@ app.post('/api/login/out',(req, res) => {
 app.post('/api/login/find-pwd',(req, res) => {
     res.send(require('./data/common/ok.json'));
 });
-app.post('/api/register/account-check',(req, res) => {
-    res.send(require('./data/register/forget.json'));
-});
+// app.post('/api/register/account-check',(req, res) => {
+//     res.send(require('./data/register/forget.json'));
+// });
 //公共部分
 app.post('/api/image/get-url',(req, res) => {
     res.send(require('./data/common/imgurl.json'));

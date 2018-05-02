@@ -24,12 +24,12 @@ class CustomerForm extends Component {
         const formdata = this.state.formdate;
         this.setState({
             current: current,
-            formdata: {...formdata,...params}
+            formdata: Object.assign({}, formdata, params)
         });
         if(current === 3){//代表已经完成注册
             // console.log("提交注册信息");
             console.log("前数据",this.state.formdata);
-            const data = {...formdata,...params};
+            const data = Object.assign({}, formdata, params);
             if(data.commission_model === 'STP'){
                 if(Number(data.extra_fee) === 1){//有手续费
                     data.commission_model = data.commission_model + (Number(data.extra_amount)/10);
