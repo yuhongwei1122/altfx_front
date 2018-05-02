@@ -51,10 +51,10 @@ class Step3Form extends Component {
                 const img1  = values.identity_front_image['file'];
                 console.log(img1.response.data.image_url);
                 values.identity_front_image = img1.response.data.image_url;
-                const img2  = values.identity_front_image['file'];
+                const img2  = values.identity_back_image['file'];
                 console.log(img2.response.data.image_url);
                 values.identity_back_image = img2.response.data.image_url;
-                const img3  = values.identity_front_image['file'];
+                const img3  = values.risk_tips_image['file'];
                 console.log(img3.response.data.image_url);
                 values.identity_back_image = img3.response.data.image_url;
                 this.props.handleNext(values);
