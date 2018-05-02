@@ -56,7 +56,7 @@ class Step3Form extends Component {
                 values.identity_back_image = img2.response.data.image_url;
                 const img3  = values.risk_tips_image['file'];
                 console.log(img3.response.data.image_url);
-                values.identity_back_image = img3.response.data.image_url;
+                values.risk_tips_image = img3.response.data.image_url;
                 this.props.handleNext(values);
             }
         });
