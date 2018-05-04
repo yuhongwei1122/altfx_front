@@ -4,7 +4,7 @@ import { Steps, Divider, Icon, Alert, message } from 'antd';
 import axios from 'axios';
 import qs from 'qs';
 import moment from 'moment';
-import Step1Form from './step1';
+import Step1Form from './step4';
 import Step2Form from './step2';
 import Step3Form from './step3';
 import './customer.css';
@@ -13,12 +13,14 @@ import Logo from './logo-blue.png';
 
 const Step = Steps.Step;
 
-class CustomerForm extends Component {
+class AgentRegForm extends Component {
     constructor(props){
         super(props);
         this.state = {
             current: 0,
-            formdata: {},
+            formdata: {
+                account_type: 2
+            },
             unique_code: ""
         }
     };
@@ -35,18 +37,6 @@ class CustomerForm extends Component {
         if(current === 3){//代表已经完成注册
             // console.log("提交注册信息");
             console.log("新数据",formdata);
-            if(formdata.commission_model === 'STP'){
-                if(Number(formdata.extra_fee) === 1){//有手续费
-                    formdata.commission_model = formdata.commission_model + (Number(formdata.extra_amount)/10);
-                }
-            }else{
-                if(Number(formdata.extra_fee) === 1){//有手续费
-                    formdata.commission_model = formdata.commission_model + ((Number(formdata.extra_amount)/10)+1);
-                }else{
-                    formdata.commission_model = formdata.commission_model + "1";
-                }
-            }
-            console.log("提交的数据",formdata);
             // data.birthday = data.birthday.format("yyyy-MM-dd");
             axios.post('/api/register/apply',qs.stringify(formdata))
             .then((res) => {
@@ -85,43 +75,6 @@ class CustomerForm extends Component {
         const current = this.state.current - 1;
         this.setState({ current });
         console.log(this.state.formdata);
-    };
-    GetQueryString = (name) =>{
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = this.props.location.search.substr(1).match(reg);
-        if(r !== null)
-            return  unescape(r[2]);
-        else {
-            return "";
-        } 
-    }
-    componentWillMount(){
-        console.log(this.props);
-        if(this.props.location.search){
-            this.setState({
-                formdata: {
-                    account_type:1,
-                    invite_code: this.GetQueryString("unique_code") || "",
-                    commission_model: this.GetQueryString("commission_model") || "STP",
-                    extra_fee: this.GetQueryString("extra_fee") || "0",
-                    extra_amount: this.GetQueryString("extra_amount") || "10",
-                    invitecodeFlag: this.GetQueryString("unique_code") != "" ? true : false,
-                    modelFlag: this.GetQueryString("commission_model") != "" ? true : false,
-                    extrafeeFlag: this.GetQueryString("extra_fee") != "" ? true : false,
-                    extraamountFlag: this.GetQueryString("extra_amount") != "" ? true : false,
-                }
-            });
-        }else{
-            this.setState({
-                formdata: {
-                    invitecodeFlag: false,
-                    modelFlag: false,
-                    extrafeeFlag: false,
-                    extraamountFlag: false,
-                    account_type:1
-                }
-            });
-        }
     };
     render() {
         const { current } = this.state;
@@ -163,4 +116,4 @@ class CustomerForm extends Component {
         );
     }
 };
-export default CustomerForm;
+export default AgentRegForm;

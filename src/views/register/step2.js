@@ -386,7 +386,7 @@ export default  Form.create({
                 }),
                 birthday: Form.createFormField({
                     ...props.editData,
-                    value: props.editData['birthday'],
+                    value: props.editData['birthdays'],
                 }),
                 province: Form.createFormField({
                     ...props.editData,

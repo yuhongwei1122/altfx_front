@@ -112,11 +112,21 @@ const AsyncConfirm = Loadable({
     loader: () => import('./views/register/confirm'),
     loading: MyLoadingComponent
 });
+const AsyncAgent = Loadable({
+    loader: () => import('./views/register/agent'),
+    loading: MyLoadingComponent
+});
+const AsyncDemo = Loadable({
+    loader: () => import('./views/register/demo'),
+    loading: MyLoadingComponent
+});
 ReactDOM.render(
     <HashRouter>
         <Switch>
             <Route path="/login" component={AsyncLogin} />
             <Route path="/register/cus" component={AsyncRegister} />
+            <Route path="/register/agent" component={AsyncAgent} />
+            <Route path="/register/demo" component={AsyncDemo} />
             <Route path="/confirm/:status" component={AsyncConfirm} />
             <Route path="/" name="content" component={AsyncApp}></Route>
         </Switch>

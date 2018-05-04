@@ -52,8 +52,8 @@ class AgentRuleForm extends Component{
         if(sessionStorage.getItem("altfx_user")){
             data = JSON.parse(sessionStorage.getItem("altfx_user"));
         }
-        const url1 =  "http:" + prefix + "/#/register?"+window.btoa(window.encodeURIComponent("unique_code="+data.unique_code));
-        const url2 =  "http:" + prefix + "/#/register?"+window.btoa(window.encodeURIComponent("unique_code="+data.unique_code + "&commission_model=STP&extra_fee=0"));
+        const url1 =  "http:" + prefix + "/#/register/cus?"+window.btoa(window.encodeURIComponent("unique_code="+data.unique_code));
+        const url2 =  "http:" + prefix + "/#/register/cus?"+window.btoa(window.encodeURIComponent("unique_code="+data.unique_code + "&commission_model=STP&extra_fee=0"));
         this.setState({
             url1: url1,
             url2: url2,

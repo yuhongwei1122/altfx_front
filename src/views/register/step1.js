@@ -12,7 +12,8 @@ class Step1Form extends Component {
         super(props);
         this.state = {
             confirmDirty: false,
-            loading: false
+            loading: false,
+            urlFlag: this.props.editData.urlFlag
         }
     };
     handleSubmit = (e) => {
@@ -151,7 +152,7 @@ class Step1Form extends Component {
                                 required: true, message: '请选择手续费!',
                             }],
                         })(
-                            <Select>   
+                            <Select disabled={this.props.editData.extraamountFlag}>   
                                 <Option value="10">$10</Option>
                                 <Option value="20">$20</Option>
                                 <Option value="30">$30</Option>
@@ -178,7 +179,7 @@ class Step1Form extends Component {
                                 pattern:/^(8|6)([0-9]{6})$/,message:"邀请码无效"
                             }]
                         })(
-                            <Input placeholder="请输入介绍经纪人ID"/>
+                            <Input disabled={this.props.editData.invitecodeFlag} placeholder="请输入介绍经纪人ID"/>
                         )}
                     </FormItem>
                     <FormItem
@@ -293,7 +294,7 @@ class Step1Form extends Component {
                         {getFieldDecorator('commission_model',{
                             initialValue: "STP",
                         })(
-                            <Select>
+                            <Select disabled={this.props.editData.modelFlag}>
                                 <Option value="STP">STP</Option>
                                 <Option value="ECN">ECN</Option>
                             </Select>
@@ -306,7 +307,7 @@ class Step1Form extends Component {
                         {getFieldDecorator('extra_fee',{
                             initialValue: "0",
                         })(
-                            <RadioGroup onChange={this.handleExtraFee}>
+                            <RadioGroup disabled={this.props.editData.extrafeeFlag} onChange={this.handleExtraFee}>
                                 <Radio value="0">否</Radio>
                                 <Radio value="1">是</Radio>
                             </RadioGroup>

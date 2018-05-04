@@ -4,10 +4,24 @@
   min-height: 100vh;
   overflow: hidden;
 }
+.register_box .register_head{
+  height: 60px;
+  line-height: 60px;
+  padding-left: 17%;
+  background: #fff;
+}
+.register_box .register_head .logo{
+  height:50px;
+  widows: auto;
+}
+.register_box .register_head .link{
+  float: right;
+  margin-right: 20%;
+}
 .register_box .register {
   width: 70%;
   padding: 10px;
-  margin: 5% auto 2%;
+  margin: 2% auto 2%;
 }
 .register_box .register .reg_contain {
   margin-top: 25px;

@@ -61,7 +61,7 @@ export default [
     },
     {
         path: '/report/index',
-        name: '基本信息',
+        name: '返佣报告',
         private: true,
         component: () => import('../../views/report/index')
     },
