@@ -21,29 +21,36 @@ class CustomerForm extends Component {
     };
     handleNext = (params) => {
         const current = this.state.current + 1;
-        const formdata = this.state.formdate;
+        let formdata = this.state.formdata;
+        let temp = Object.assign(formdata, params);
+        let dd = {...formdata,...params};
+        console.log("合并后的对象",formdata);
+        console.log("合并后的新对象",temp);
+        console.log(dd);
+        // let tempdata = Object.assign(temp, ...formdata);
         this.setState({
             current: current,
-            formdata: Object.assign({}, formdata, params)
+            formdata: formdata
         });
         if(current === 3){//代表已经完成注册
             // console.log("提交注册信息");
             console.log("前数据",this.state.formdata);
-            const data = Object.assign({}, formdata, params);
-            if(data.commission_model === 'STP'){
+            console.log("新数据",formdata);
+            let data = Object.assign(formdata, params);
+            if(formdata.commission_model === 'STP'){
                 if(Number(data.extra_fee) === 1){//有手续费
-                    data.commission_model = data.commission_model + (Number(data.extra_amount)/10);
+                    formdata.commission_model = data.commission_model + (Number(data.extra_amount)/10);
                 }
             }else{
-                if(Number(data.extra_fee) === 1){//有手续费
-                    data.commission_model = data.commission_model + ((Number(data.extra_amount)/10)+1);
+                if(Number(formdata.extra_fee) === 1){//有手续费
+                    formdata.commission_model = data.commission_model + ((Number(data.extra_amount)/10)+1);
                 }else{
-                    data.commission_model = data.commission_model + "1";
+                    formdata.commission_model = data.commission_model + "1";
                 }
             }
-            console.log("提交的数据",data);
+            console.log("提交的数据",formdata);
             // data.birthday = data.birthday.format("yyyy-MM-dd");
-            axios.post('/api/register/apply',qs.stringify(data))
+            axios.post('/api/register/apply',qs.stringify(formdata))
             .then((res) => {
                 if(Number(res.error.returnCode) === 0){
                     if(res.error.returnCode === 0){
@@ -79,7 +86,7 @@ class CustomerForm extends Component {
     handlePrev = () => {
         const current = this.state.current - 1;
         this.setState({ current });
-        console.log(this.state.formdate);
+        console.log(this.state.formdata);
     }
     render() {
         const { current } = this.state;

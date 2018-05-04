@@ -27,23 +27,26 @@ class Step2Form extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             console.log(values);
             values.phone_prefix = "86";
-            if (!err && !this.state.emailFlag) {
-                values.birthday = this.state.birthday;
-                console.log(values);
-                this.props.handleNext(values);
-            }else{
-                Modal.info({
-                    title: '提示',
-                    content: (
-                      <div>电子邮箱:{values.mail}已经注册过该系统，请更换！</div>
-                    ),
-                    onOk() {
-                        form.setFieldsValue({
-                            "mail": "",
-                        });
-                    },
-                    okText:"关闭"
-                });
+            if (!err) {
+                
+                if(!this.state.emailFlag){
+                    values.birthday = this.state.birthday;
+                    console.log(values);
+                    this.props.handleNext(values);
+                }else{
+                    Modal.info({
+                        title: '提示',
+                        content: (
+                          <div>电子邮箱:{values.mail}已经注册过该系统，请更换！</div>
+                        ),
+                        onOk() {
+                            form.setFieldsValue({
+                                "mail": "",
+                            });
+                        },
+                        okText:"关闭"
+                    });
+                }
             }
         });
     };
@@ -188,6 +191,9 @@ class Step2Form extends Component {
                         >
                         {getFieldDecorator('sex',{
                             initialValue: "1",
+                            rules: [{
+                                required: true, message: '请选择性别!'
+                            }]
                         })(
                             <RadioGroup>
                                 <Radio value="1">男</Radio>
@@ -278,6 +284,8 @@ class Step2Form extends Component {
                         {getFieldDecorator('phone',{
                             initialValue: "",
                             rules:[{
+                                required: true, message: '请输入电话号码!',
+                            },{
                                 pattern:/^1([0-9]{10})$/,message:"请输入正确的电话号码"
                             }]
                         })(

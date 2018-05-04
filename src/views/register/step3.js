@@ -128,26 +128,35 @@ class Step3Form extends Component {
                         label="身份证正面"
                         extra="带有头像的一面"
                         >
-                        {getFieldDecorator('identity_front_image')(
-                            <Upload
-                                accept="image/jpg,image/jpeg,image/png"
-                                name="image"
-                                action={uploadImgUrl}
-                                listType="picture-card"
-                                fileList={this.state.fileList}
-                                data={{type:1,account:this.props.editData.username}}
-                                onPreview={this.handlePreview}
-                                onChange={this.handleChange}
-                                >
-                                {this.state.fileList.length >= 1 ? null : uploadButton}
-                            </Upload>
+                        {getFieldDecorator('identity_front_image',
+                            {
+                                rules: [{
+                                    required: true, message: '请上传身份证正面!'
+                                }]
+                            })(
+                                <Upload
+                                    accept="image/jpg,image/jpeg,image/png"
+                                    name="image"
+                                    action={uploadImgUrl}
+                                    listType="picture-card"
+                                    fileList={this.state.fileList}
+                                    data={{type:1,account:this.props.editData.username}}
+                                    onPreview={this.handlePreview}
+                                    onChange={this.handleChange}
+                                    >
+                                    {this.state.fileList.length >= 1 ? null : uploadButton}
+                                </Upload>
                         )}
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="身份证反面"
                         extra="带有国徽的一面">
-                        {getFieldDecorator('identity_back_image', )(
+                        {getFieldDecorator('identity_back_image', {
+                                rules: [{
+                                    required: true, message: '请上传身份证反面!'
+                                }]
+                            })(
                             <Upload
                                 accept="image/jpg,image/jpeg,image/png"
                                 name="image"
@@ -167,7 +176,11 @@ class Step3Form extends Component {
                         label="本人手持身份证正面照片"
                         extra=""
                         >
-                        {getFieldDecorator('risk_tips_image')(
+                        {getFieldDecorator('risk_tips_image',{
+                                rules: [{
+                                    required: true, message: '请上传本人手持身份证正面照片!'
+                                }]
+                            })(
                             <Upload
                                 accept="image/jpg,image/jpeg,image/png"
                                 name="image"
@@ -187,7 +200,7 @@ class Step3Form extends Component {
                         <Tag color="blue">2.请上传您的清晰身份证明文件，必须由政府发布具有照片和您姓名的身份证。</Tag>
                         <Tag color="blue">3.您的相片、个人信息、签署、发行和有效期，以及ID号码必须全部清楚显示您上传的文件中。</Tag>
                     </FormItem>
-                    <Divider className="reg_title" orientation="left"><Icon type="user"></Icon>声明</Divider>
+                    <Divider className="reg_title" orientation="left"><Icon type="info-circle-o"></Icon>声明</Divider>
                     <FormItem style={{marginBottom:0}} {...tailFormItemLayout}>
                         {getFieldDecorator('agreement1', {
                             valuePropName: 'checked',
