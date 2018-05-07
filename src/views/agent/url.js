@@ -33,7 +33,7 @@ class AgentRuleForm extends Component{
         });
     };
     createUrl = () => {
-        const url3 =  "http:" + this.state.prefix + "/#/register?"+window.btoa(window.encodeURIComponent("unique_code="+this.state.userDate.unique_code + "&commission_model="+this.state.commission_model+"&extra_fee="+this.state.extra_amount));
+        const url3 =  "http:" + this.state.prefix + "/#/register/cus?"+window.btoa(window.encodeURIComponent("unique_code="+this.state.userDate.unique_code + "&commission_model="+this.state.commission_model+"&extra_fee=1&extra_amount="+this.state.extra_amount));
         this.setState({
             url3: url3
         });
