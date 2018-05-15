@@ -39,7 +39,7 @@ export default class SiderMenu extends PureComponent {
             info = JSON.parse(sessionStorage.getItem("altfx_user"));
         }
         this.state = {
-            role: info.account === 'account' ? "admin" : Number(info.employee) === 0 ? (Number(info.role) === 4 ? "custom" : "agent") : "employee",
+            role: info.account === 'admin' ? "admin" : Number(info.employee) === 0 ? (Number(info.role) === 4 ? "custom" : "agent") : "employee",
             openKeys: this.getDefaultCollapsedSubMenus(props),
         };
     };
@@ -86,6 +86,7 @@ export default class SiderMenu extends PureComponent {
         if (!menusData) {
             return [];
         }
+        console.log(this.state.role);
         // console.log("代理：",this.state.agent);
         // console.log("客户：",this.state.custom);
         // console.log("员工：",this.state.employee);

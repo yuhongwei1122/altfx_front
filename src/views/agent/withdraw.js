@@ -349,7 +349,7 @@ class WithdrawForm extends Component{
                     <Row gutter={24}>
                         <Col span={24}>
                             <FormItem {...tailFormItemLayout}>
-                                <Button type="primary" htmlType="submit">下一步</Button>
+                                <Button type="primary" htmlType="submit">确定</Button>
                             </FormItem>
                         </Col>
                     </Row>

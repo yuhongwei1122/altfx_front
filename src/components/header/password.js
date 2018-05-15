@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input, Form, Spin } from 'antd';
 import axios from 'axios';
+import qs from 'qs';
 const FormItem = Form.Item;
 
 class UpdatePasswordForm extends Component {
@@ -16,7 +17,7 @@ class UpdatePasswordForm extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
             this.setState({loading: true});
-            axios.post('/api/user/update-pwd',values
+            axios.post('/api/user/update-pwd',qs.stringify(values)
             ).then((res) => {
                 this.setState({loading: false});
                 this.props.handleUpdateOk();

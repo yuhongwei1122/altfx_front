@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Divider, Icon } from 'antd';
 import './customer.css';
+import Logo from './logo-blue.png';
 
 class ConfirmForm extends Component {
     constructor(props){
@@ -46,7 +47,10 @@ class ConfirmForm extends Component {
     render() {
         return (
             <div className="register_box">
-                <div style={{margin:"10px"}}><Link to={{pathname:'login'}}><Icon type="left-circle-o" />返回登录</Link></div>
+                <div className="register_head">
+                    <img alt="" className="logo" src={Logo}/>
+                    <Link className="link" to={{pathname:'login'}}><Icon type="left-circle-o" />返回登录</Link>
+                </div>
                 <div className="register">
                     <div className="reg_contain">
                         <div className="confirm_icon">

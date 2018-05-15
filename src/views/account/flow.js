@@ -127,7 +127,7 @@ class FlowTable extends Component {
                         return "已完成";
                     }else if(Number(text) === 6){
                         return "审核拒绝";
-                    }else if(Number(text) === 5){
+                    }else if(Number(text) === 7){
                         return "支付失败";
                     }else{
                         return "已取消";

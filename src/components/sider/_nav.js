@@ -74,6 +74,13 @@ const menuData = [
         role: ["custom","agent"],
         children:[
             {
+                key: 'recharge',
+                name: '账户入金',
+                path: '/account/recharge',
+                icon: 'home',
+                role: ['custom']
+            },
+            {
                 key: 'uwithdraw',
                 name: '账户出金',
                 path: '/account/withdraw',

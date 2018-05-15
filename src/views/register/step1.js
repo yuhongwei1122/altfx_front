@@ -274,7 +274,7 @@ class Step1Form extends Component {
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="账户货币"
+                        label="杠杆"
                         >
                         {getFieldDecorator('leverage',{
                             initialValue: "4",

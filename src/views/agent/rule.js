@@ -43,7 +43,7 @@ export default class AgentRuleTable extends Component{
             size:this.state.pagination.pageSize,
             ...params
         })).then((res) => {
-            if(Number(res.error.returnCode)){
+            if(Number(res.error.returnCode) === 0){
                 let pager = { ...this.state.pagination };
                 pager.total = Number(res.data.result_count);
                 this.setState({

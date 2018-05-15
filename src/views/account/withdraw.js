@@ -364,7 +364,7 @@ class WithdrawForm extends Component{
                     <Row gutter={24}>
                         <Col span={24}>
                             <FormItem {...tailFormItemLayout}>
-                                <Button type="primary" htmlType="submit">下一步</Button>
+                                <Button type="primary" htmlType="submit">确定</Button>
                             </FormItem>
                         </Col>
                     </Row>
@@ -376,7 +376,7 @@ class WithdrawForm extends Component{
                     footer={null}
                     >
                     <div>
-                        <FillBank handleBankUpdateCancel={this.handleBankUpdateCancel} handleBankUpdateOk={this.handleBankUpdateOk} editData={this.state.editData}/>
+                        <FillBank handleUpdateBankCancel={this.handleBankUpdateCancel} handleBankUpdateOk={this.handleBankUpdateOk} editData={this.state.editData}/>
                     </div>
                 </Modal>
             </div>
